@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 
-public class Course {
+public class _Course {
     private String courseCode;
     private String name;
     private String instructor;

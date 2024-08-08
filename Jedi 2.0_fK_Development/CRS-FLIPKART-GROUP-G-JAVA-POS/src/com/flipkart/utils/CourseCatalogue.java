@@ -8,11 +8,4 @@ public class CourseCatalogue {
     public static List<Courses> getCoursesList() {
         return coursesList;
     }
-
-    public void  setCoursesList(List<Courses> coursesList) {
-        this.coursesList = coursesList;
-    }
-    public  static void addCourse(Courses temp) {
-        coursesList.add(temp);
-    }
 }

@@ -1,5 +1,6 @@
 package com.flipkart.utils;
 
+import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 
 import java.util.List;
@@ -9,6 +10,16 @@ public class Courses {
     private boolean canEnroll;
     private int fees;
     private List<Student> students;
+    private Professor prof;
+    private int id;
+
+    public int getId(){
+        return id;
+    }
+
+    public void setID(int num){
+        id = num;
+    }
 
     public Courses(String code, boolean b, int i, List<com.flipkart.business.Student> students) {
     }
@@ -43,5 +54,13 @@ public class Courses {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public void setProf(Professor p){
+        prof = p;
+    }
+    
+    public Professor getProf(){
+        return prof;
     }
 }

@@ -1,6 +1,6 @@
 package com.flipkart.client;
 
-import com.flipkart.bean.Course;
+import com.flipkart.business.AdminBusiness;
 import com.flipkart.business.Student;
 import com.flipkart.utils.Courses;
 
@@ -61,7 +61,6 @@ public class CRSCient {
         int studentChoice;
         switch (role.toLowerCase()) {
             case "student":
-
                 studentMenu(scanner);
                 break;
             case "professor":
@@ -69,13 +68,88 @@ public class CRSCient {
 
                 break;
             case "admin":
-                System.out.println("Admin Menu");
+                adminMenu(scanner);
                 break;
             default:
                 System.out.println("Invalid role. Please choose either Student, Professor, or Admin.");
         }
         System.out.println();
     }
+
+    private static void adminMenu(Scanner sc){
+
+        // Expect 2nd argument as a User class generic with Admin present within
+        AdminBusiness admin;
+        admin = new AdminBusiness();
+
+        int choice = 0;
+        boolean exit = false;
+        int studentId;
+        int profId;
+        int courseId;
+
+        while(!exit){
+            System.out.flush();
+            System.out.println("Choose function");
+            System.out.println("1.Approve Student Registration");
+            System.out.println("2.Send Grade");
+            System.out.println("3.Remove Course");
+            System.out.println("4.Add Prof");
+            System.out.println("5.Remove Prof");
+            System.out.println("6.Send Payment Notification");
+            System.out.println("7.Exit");
+
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter Student ID");
+                    studentId = sc.nextInt();
+                    System.out.println("Enter Course ID");
+                    courseId = sc.nextInt();
+                    admin.approveStudentReg(studentId, courseId);
+                break;
+                case 2:
+                    System.out.println("Enter Student ID");
+                    studentId = sc.nextInt();
+                    admin.generateReportCard(studentId);
+                break;
+                case 3:
+                    System.out.println("Enter Course ID");
+                    courseId = sc.nextInt();
+                    admin.removeCourse(admin.getCourse(courseId));
+                break;
+                case 4:
+                    System.out.println("Enter Course ID");
+                    courseId = sc.nextInt();
+                    System.out.println("Enter Prof ID");
+                    profId = sc.nextInt();
+                    admin.addProf(courseId, profId);
+                break;
+                case 5:
+                    System.out.println("Enter Course ID");
+                    courseId = sc.nextInt();
+                    System.out.println("Enter Prof ID");
+                    profId = sc.nextInt();
+                    admin.removeProf(courseId, profId);
+                break;
+                case 6:
+                    System.out.println("Enter Student ID");
+                    studentId = sc.nextInt();
+                    admin.sendPaymentNotice(studentId);
+                break;
+                case 7:
+                    exit = true;
+                break;
+                default:
+                    System.out.println("Wrong input.");
+                    // Will appear for the briefest of moments
+                    break;
+            }
+
+        }
+    }
+
     private static void studentMenu(Scanner scanner) {
         List<Student> students = new ArrayList<Student>();
         students.add(new Student(1,"dummy1","depart1"));
