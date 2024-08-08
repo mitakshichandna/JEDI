@@ -1,5 +1,11 @@
 package com.flipkart.client;
 
+import com.flipkart.bean.Course;
+import com.flipkart.business.Student;
+import com.flipkart.utils.Courses;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CRSCient {
@@ -52,10 +58,11 @@ public class CRSCient {
         System.out.print("Role (Student/Professor/Admin): ");
         String role = scanner.nextLine();
         System.out.println();
+        int studentChoice;
         switch (role.toLowerCase()) {
             case "student":
-                System.out.println("Student Menu");
 
+                studentMenu(scanner);
                 break;
             case "professor":
                 System.out.println("Professor Menu");
@@ -68,5 +75,33 @@ public class CRSCient {
                 System.out.println("Invalid role. Please choose either Student, Professor, or Admin.");
         }
         System.out.println();
+    }
+    private static void studentMenu(Scanner scanner) {
+        List<Student> students = new ArrayList<Student>();
+        students.add(new Student(1,"dummy1","depart1"));
+        Courses courses = new Courses("CODE", true,123,students);
+                        System.out.println("Student Menu");
+                System.out.println();
+                System.out.println("choose:");
+                System.out.println("press 1-- register course");
+                System.out.println("press 2-- add course");
+                System.out.println("press 3-- drop course");
+                System.out.println("press 4-- pay fee");
+                System.out.println("press 5-- check grades");
+                int studentChoice=scanner.nextInt();
+                scanner.nextLine();
+                switch (studentChoice) {
+                    case 1:
+                        Student.registerCourse(courses);
+                    case 2:
+                        Student.addCourse(courses);
+                    case 3:
+                        Student.dropCourse(courses);
+                    case 4:
+                        Student.payFee(courses);
+                    case 5:
+                        Student.checkGrades();
+                }
+
     }
 }

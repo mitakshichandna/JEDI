@@ -10,6 +10,9 @@ public class Courses {
     private int fees;
     private List<Student> students;
 
+    public Courses(String code, boolean b, int i, List<com.flipkart.business.Student> students) {
+    }
+
     public String getName() {
         return name;
     }

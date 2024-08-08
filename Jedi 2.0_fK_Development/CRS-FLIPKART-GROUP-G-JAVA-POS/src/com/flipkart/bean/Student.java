@@ -8,7 +8,7 @@ public class Student {
     private int studentId;
     private String name;
     private String department;
-    private List<Courses> registeredCourses;
+//    private List<Courses> registeredCourses;
 
     public String getName() {
         return name;
@@ -26,13 +26,13 @@ public class Student {
         this.department = department;
     }
 
-    public List<Courses> getRegisteredCourses() {
-        return registeredCourses;
-    }
+//    public List<Courses> getRegisteredCourses() {
+//        return registeredCourses;
+//    }
 
-    public void setRegisteredCourses(List<Courses> registeredCourses) {
-        this.registeredCourses = registeredCourses;
-    }
+//    public void setRegisteredCourses(List<Courses> registeredCourses) {
+//        this.registeredCourses = registeredCourses;
+//    }
 
     public int getStudentId() {
         return studentId;

@@ -3,6 +3,10 @@ package com.flipkart.business;
 import com.flipkart.utils.Courses;
 
 public class Student {
+    public Student(int i, String dummy1, String depart1) {
+
+    }
+
     public static boolean registerCourse(Courses temp){
         System.out.println(" registered"+temp);
         return true;
