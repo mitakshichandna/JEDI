@@ -1,12 +1,15 @@
 package com.flipkart.client;
 
+import com.flipkart.bean.Grade;
+import com.flipkart.bean.Professor;
 import com.flipkart.business.AdminBusiness;
+import com.flipkart.business.ProfessorBusiness;
 import com.flipkart.business.Student;
 import com.flipkart.utils.Courses;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.net.StandardSocketOptions;
+import java.sql.SQLOutput;
+import java.util.*;
 
 public class CRSCient {
     public static void main(String[] args) {
@@ -65,7 +68,7 @@ public class CRSCient {
                 break;
             case "professor":
                 System.out.println("Professor Menu");
-
+                professorMenu(username,scanner);
                 break;
             case "admin":
                 adminMenu(scanner);
@@ -177,5 +180,86 @@ public class CRSCient {
                         Student.checkGrades();
                 }
 
+    }
+
+    private static void professorMenu(String username, Scanner scanner) {
+        Professor professor = new Professor();
+        professor.setName(username);
+        professor.setDepartment("Science");
+        professor.setProfessorId(101);
+
+        List<Student> students = new ArrayList<Student>();
+        students.add(new Student(1,"Aman","depart1"));
+        students.add(new Student(2,"Akhil","depart2"));
+
+        List<Courses> courses = new ArrayList<Courses>();
+        courses.add(new Courses("SB101",true,2500,students));
+
+        int choice;
+        int courseId;
+        int profId;
+        int studentId;
+        boolean exit = false;
+
+        ProfessorBusiness professorBusiness = new ProfessorBusiness();
+
+        while(!exit) {
+
+            System.out.println("Professor Menu");
+            System.out.println("1.Available Courses");
+            System.out.println("2.Calculate Grade");
+            System.out.println("3.Course Removal");
+            System.out.println("4.Courses under Professor");
+            System.out.println("5.Select Course");
+            System.out.println("5.Exit");
+
+
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Available courses: ");
+                    professorBusiness.accessAvailableCourses(courses);
+                    break;
+                case 2:
+                    System.out.println("Calculating Grade: ");
+                    System.out.println("Enter student Id");
+                    System.out.println("Enter course Id");
+                    studentId = scanner.nextInt();
+                    courseId = scanner.nextInt();
+                    Grade grade = new Grade();
+                    grade.setGrade("A");
+                    ProfessorBusiness.viewGrades(grade);
+                    break;
+                case 3:
+                    System.out.println("Removing Course...");
+                    System.out.println("Enter course Id");
+                    courseId = scanner.nextInt();
+                    ProfessorBusiness.removeCourse(courseId,courses);
+                    break;
+                case 4:
+                    System.out.println("Courses under Professor: ");
+                    System.out.println("Enter course Id");
+                    profId = scanner.nextInt();
+                    professorBusiness.viewCoursesUnderProfessor(professor);
+                    break;
+                case 5:
+                    System.out.println("Enter course name");
+                    String courseName = scanner.nextLine();
+                    Map<Integer,String> courseMap = new HashMap<Integer,String>();
+                    courseMap.put(professor.getProfessorId(),courseName);
+                    professor.setCourseMap(courseMap);
+                    break;
+                case 6:
+                    System.out.println("Exiting...");
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        }
     }
 }
