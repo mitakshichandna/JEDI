@@ -2,8 +2,8 @@ package com.flipkart.business;
 
 import com.flipkart.utils.Courses;
 
-public class Student {
-    public Student(int i, String dummy1, String depart1) {
+public class StudentBusiness {
+    public StudentBusiness(int i, String dummy1, String depart1) {
 
     }
 

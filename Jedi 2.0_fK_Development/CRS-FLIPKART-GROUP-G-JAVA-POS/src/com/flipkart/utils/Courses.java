@@ -2,6 +2,7 @@ package com.flipkart.utils;
 
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.business.StudentBusiness;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Courses {
         id = num;
     }
 
-    public Courses(String code, boolean b, int i, List<com.flipkart.business.Student> students) {
+    public Courses(String code, boolean b, int i, List<StudentBusiness> students) {
     }
 
     public String getName() {

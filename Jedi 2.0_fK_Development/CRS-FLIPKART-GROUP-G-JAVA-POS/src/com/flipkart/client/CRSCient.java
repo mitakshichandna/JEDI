@@ -4,11 +4,9 @@ import com.flipkart.bean.Grade;
 import com.flipkart.bean.Professor;
 import com.flipkart.business.AdminBusiness;
 import com.flipkart.business.ProfessorBusiness;
-import com.flipkart.business.Student;
+import com.flipkart.business.StudentBusiness;
 import com.flipkart.utils.Courses;
 
-import java.net.StandardSocketOptions;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class CRSCient {
@@ -154,8 +152,8 @@ public class CRSCient {
     }
 
     private static void studentMenu(Scanner scanner) {
-        List<Student> students = new ArrayList<Student>();
-        students.add(new Student(1,"dummy1","depart1"));
+        List<StudentBusiness> students = new ArrayList<StudentBusiness>();
+        students.add(new StudentBusiness(1,"dummy1","depart1"));
         Courses courses = new Courses("CODE", true,123,students);
                         System.out.println("Student Menu");
                 System.out.println();
@@ -169,15 +167,15 @@ public class CRSCient {
                 scanner.nextLine();
                 switch (studentChoice) {
                     case 1:
-                        Student.registerCourse(courses);
+                        StudentBusiness.registerCourse(courses);
                     case 2:
-                        Student.addCourse(courses);
+                        StudentBusiness.addCourse(courses);
                     case 3:
-                        Student.dropCourse(courses);
+                        StudentBusiness.dropCourse(courses);
                     case 4:
-                        Student.payFee(courses);
+                        StudentBusiness.payFee(courses);
                     case 5:
-                        Student.checkGrades();
+                        StudentBusiness.checkGrades();
                 }
 
     }
@@ -188,9 +186,9 @@ public class CRSCient {
         professor.setDepartment("Science");
         professor.setProfessorId(101);
 
-        List<Student> students = new ArrayList<Student>();
-        students.add(new Student(1,"Aman","depart1"));
-        students.add(new Student(2,"Akhil","depart2"));
+        List<StudentBusiness> students = new ArrayList<StudentBusiness>();
+        students.add(new StudentBusiness(1,"Aman","depart1"));
+        students.add(new StudentBusiness(2,"Akhil","depart2"));
 
         List<Courses> courses = new ArrayList<Courses>();
         courses.add(new Courses("SB101",true,2500,students));
