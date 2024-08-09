@@ -11,8 +11,10 @@ import com.flipkart.utils.Courses;
 
 public class AdminBusiness{
 
-    public boolean addProf(Courses course, Professor professor){
+    public boolean addProf(int courseId, int professorId){
         System.out.println("Added Prof");
+        Professor professor = Database.profMap.get(professorId);
+        Courses course = Database.courseMap.get(courseId);
         professor.setProfessorId(Database.userId+1);
         course.setProf(professor);
         professor.setCourseMap(course.getId(), course.getName());
