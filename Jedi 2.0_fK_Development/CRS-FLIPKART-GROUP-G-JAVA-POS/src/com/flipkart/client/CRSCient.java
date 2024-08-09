@@ -240,8 +240,9 @@ public class CRSCient {
                 case 2:
                     System.out.println("Calculating Grade: ");
                     System.out.println("Enter student Id");
-                    System.out.println("Enter course Name");
                     studentId = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Enter course Name");
                     courseName = scanner.nextLine();
                     Grade grade = new Grade();
                     grade.setGrade("A");
