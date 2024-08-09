@@ -167,15 +167,20 @@ public class CRSCient {
                 scanner.nextLine();
                 switch (studentChoice) {
                     case 1:
-                        StudentBusiness.registerCourse(courses);
+                        StudentBusiness.registerCourse();
+                        break;
                     case 2:
-                        StudentBusiness.addCourse(courses);
+                        StudentBusiness.addCourse();
+                        break;
                     case 3:
-                        StudentBusiness.dropCourse(courses);
+                        StudentBusiness.dropCourse();
+                        break;
                     case 4:
-                        StudentBusiness.payFee(courses);
+                        StudentBusiness.payFee();
+                        break;
                     case 5:
                         StudentBusiness.checkGrades();
+                        break;
                 }
 
     }
