@@ -2,13 +2,13 @@ package com.flipkart.bean;
 
 import com.flipkart.utils.Courses;
 
-import java.util.List;
+import java.util.HashSet;
 
 public class Student {
     private int studentId;
     private String name;
     private String department;
-   private List<Courses> registeredCourses;
+    private HashSet<Integer> registeredCourses;
 
     public Student(int studentId, String name, String department) {
         this.studentId = studentId;
@@ -32,23 +32,23 @@ public class Student {
         this.department = department;
     }
 
-   public List<Courses> getRegisteredCourses() {
+   public HashSet<Integer> getRegisteredCourses() {
        return registeredCourses;
    }
 
-   public void setRegisteredCourses(List<Courses> registeredCourses) {
+   public void setRegisteredCourses(HashSet<Integer> registeredCourses) {
        this.registeredCourses = registeredCourses;
    }
 
-   public void addCourses(Courses course){
-    registeredCourses.add(course);
+   public void addCourse(int courseId){
+    registeredCourses.add(courseId);
    }
 
-    public int getStudentId() {
+    public int getId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setId(int studentId) {
         this.studentId = studentId;
     }
 }

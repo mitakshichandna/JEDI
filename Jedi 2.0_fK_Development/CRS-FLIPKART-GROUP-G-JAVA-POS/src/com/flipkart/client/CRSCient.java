@@ -11,8 +11,6 @@ import com.flipkart.utils.Courses;
 
 import java.util.*;
 
-import javax.xml.crypto.Data;
-
 public class CRSCient {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -91,9 +89,9 @@ public class CRSCient {
 
         int choice = 0;
         boolean exit = false;
-        int studentId;
-        int profId;
-        int courseId;
+        String studentName;
+        String profName;
+        String courseName;
 
         while(!exit){
             System.out.print("\033[H\033[2J"); 
@@ -114,40 +112,40 @@ public class CRSCient {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter Student ID");
-                    studentId = sc.nextInt();
-                    System.out.println("Enter Course ID");
-                    courseId = sc.nextInt();
-                    admin.approveStudentReg(studentId, courseId);
+                    System.out.println("Enter Student Name");
+                    studentName = sc.nextLine();
+                    System.out.println("Enter Course Name");
+                    courseName = sc.next();
+                    admin.approveStudentReg(studentName, courseName);
                 break;
                 case 2:
-                    System.out.println("Enter Student ID");
-                    studentId = sc.nextInt();
-                    admin.generateReportCard(studentId);
+                    System.out.println("Enter Student Name");
+                    studentName = sc.nextLine();
+                    admin.generateReportCard(studentName);
                 break;
                 case 3:
-                    System.out.println("Enter Course ID");
-                    courseId = sc.nextInt();
-                    admin.removeCourse(admin.getCourse(courseId));
+                    System.out.println("Enter Course Name");
+                    courseName = sc.next();
+                    admin.removeCourse(courseName);
                 break;
                 case 4:
-                    System.out.println("Enter Course ID");
-                    courseId = sc.nextInt();
-                    System.out.println("Enter Prof ID");
-                    profId = sc.nextInt();
-                    admin.addProf(courseId, profId);
+                    System.out.println("Enter Course Name");
+                    courseName = sc.next();
+                    System.out.println("Enter Prof Name");
+                    profName = sc.nextLine();
+                    admin.addProf(courseName, profName);
                 break;
                 case 5:
-                    System.out.println("Enter Course ID");
-                    courseId = sc.nextInt();
-                    System.out.println("Enter Prof ID");
-                    profId = sc.nextInt();
-                    admin.removeProf(courseId, profId);
+                    System.out.println("Enter Course Name");
+                    courseName = sc.next();
+                    System.out.println("Enter Prof Name");
+                    profName = sc.nextLine();
+                    admin.removeProf(courseName, profName);
                 break;
                 case 6:
-                    System.out.println("Enter Student ID");
-                    studentId = sc.nextInt();
-                    admin.sendPaymentNotice(studentId);
+                    System.out.println("Enter Student Name");
+                    studentName = sc.nextLine();
+                    admin.sendPaymentNotice(studentName);
                 break;
                 case 7:
                 break;
@@ -170,7 +168,7 @@ public class CRSCient {
     private static void studentMenu(Scanner scanner) {
         List<Student> students = new ArrayList<Student>();
         students.add(new Student(1,"dummy1","depart1"));
-        Courses courses = new Courses(Database.courseId++, "CODE", true,students);
+        Courses courses = new Courses(Database.getCourseId(), "CODE", true,students);
                         System.out.println("Student Menu");
                 System.out.println();
                 System.out.println("choose:");
@@ -205,25 +203,25 @@ public class CRSCient {
         Professor professor = new Professor();
         professor.setName(username);
         professor.setDepartment("Science");
-        professor.setProfessorId(101);
+        professor.setId(Database.getUserId());
 
         List<Student> students = new ArrayList<Student>();
         students.add(new Student(1,"Aman","depart1"));
         students.add(new Student(2,"Akhil","depart2"));
 
         List<Courses> courses = new ArrayList<Courses>();
-        courses.add(new Courses(Database.courseId++,"SB101",true,students));
+        courses.add(new Courses(Database.getCourseId(),"SB101",true,students));
 
         int choice;
         String courseName;
-        int profId;
+        String profName;
         int studentId;
         boolean exit = false;
         List<String> courseMap = new ArrayList<>();
 
-        System.out.print("Enter ProfId: ");
-        profId = scanner.nextInt();
-        professor.setProfessorId(profId);
+        System.out.print("Enter Prof Name: ");
+        profName = scanner.nextLine();
+        professor.setId(Database.getUserId());
 
         ProfessorBusiness professorBusiness = new ProfessorBusiness();
 
@@ -279,7 +277,7 @@ public class CRSCient {
                         }
                     }
                     if(id != -1){
-                        professor.addCourseMap(id);
+                        professor.addCourse(id);
                     }else{
                         System.out.println("Course does not exist");
                     } 

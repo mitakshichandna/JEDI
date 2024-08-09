@@ -2,12 +2,15 @@ package com.flipkart.business;
 
 import com.flipkart.bean.Grade;
 import com.flipkart.bean.Professor;
+import com.flipkart.dao.Database;
 import com.flipkart.utils.Courses;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ProfessorBusiness {
 
@@ -37,28 +40,22 @@ public class ProfessorBusiness {
     }
 
     public static void removeCourse(String courseName, Professor professor) {
-        boolean check = false;
-        List<String> courses = professor.getCourseMap();
-        for (int i=0;i<courses.size();i++) {
-            if(Objects.equals(courses.get(i), courseName)) {
-                courses.remove(i);
-                check = true;
-                break;
-            }
-        }
-        if(!check) {
-            System.out.println("No such course");
+        int courseId = Database.getCourseId(courseName);
+        boolean status = professor.getCourseMap().remove(courseId);
+        if(!status){
+            System.out.println("Course not assigned to prof");
         }
     }
 
     public void viewCoursesUnderProfessor(Professor professor) {
-        List<String> courseMap = professor.getCourseMap();
-        if(courseMap == null){
+        ArrayList<Integer> courses = (ArrayList<Integer>)professor.getCourseMap().stream()
+                  .collect(Collectors.toList());
+        if(courses == null){
             System.out.println("No courses under professor");
         }
         else {
-            for (int i = 0; i < courseMap.size(); i++) {
-                System.out.println(courseMap.get(i));
+            for (int id:courses) {
+                System.out.println(Database.courseMap.get(id).getName());
             }
         }
     }

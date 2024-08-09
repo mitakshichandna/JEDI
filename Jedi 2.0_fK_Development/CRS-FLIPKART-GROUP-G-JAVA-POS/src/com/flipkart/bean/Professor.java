@@ -1,23 +1,19 @@
 package com.flipkart.bean;
 
-import java.util.List;
-import java.util.Map;
-
-import com.flipkart.utils.Courses;
+import java.util.HashSet;
 
 public class Professor {
     private int professorId;
     private String name;
     private String department;
-    private List<Integer> courseMap;
-
+    private HashSet<Integer> courseSet;
     public Professor(){};
 
-    public int getProfessorId() {
+    public int getId() {
         return professorId;
     }
 
-    public void setProfessorId(int professorId) {
+    public void setId(int professorId) {
         this.professorId = professorId;
     }
 
@@ -37,9 +33,13 @@ public class Professor {
         this.department = department;
     }
 
-    public void addCourseMap(int courseId) {
-        this.courseMap.add(courseId);
+    public void addCourse(int courseId) {
+        this.courseSet.add(courseId);
     }
 
-    public List<Integer> getCourseMap() {return courseMap;}
+    public void removeCourse(int courseId){
+        this.courseSet.remove(courseId);
+    }
+
+    public HashSet<Integer> getCourseMap() {return courseSet;}
 }

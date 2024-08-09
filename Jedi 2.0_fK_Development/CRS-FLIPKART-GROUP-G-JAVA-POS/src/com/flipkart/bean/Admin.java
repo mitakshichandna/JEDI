@@ -1,7 +1,5 @@
 package com.flipkart.bean;
 
-import java.util.HashMap;
-
 public class Admin {
     private int adminId;
     private String name;

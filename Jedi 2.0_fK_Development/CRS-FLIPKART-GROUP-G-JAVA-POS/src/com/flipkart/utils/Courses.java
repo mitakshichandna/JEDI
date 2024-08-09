@@ -3,7 +3,6 @@ package com.flipkart.utils;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Courses {
@@ -73,6 +72,10 @@ public class Courses {
 
     public void setProf(Professor p){
         prof = p;
+    }
+
+    public void removeProf(Professor p){
+        prof = null;
     }
     
     public Professor getProf(){
