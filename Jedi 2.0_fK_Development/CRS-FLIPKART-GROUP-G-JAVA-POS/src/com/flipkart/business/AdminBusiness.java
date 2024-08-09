@@ -1,25 +1,35 @@
 package com.flipkart.business;
 
 import java.util.HashMap;
+import java.util.List;
 
+import javax.xml.crypto.Data;
+
+import com.flipkart.bean.Professor;
+import com.flipkart.dao.Database;
 import com.flipkart.utils.Courses;
 
 public class AdminBusiness{
 
-    public HashMap<Integer, Courses> courseMap;
-
-    public boolean addProf(int course, int Professor){
+    public boolean addProf(Courses course, Professor professor){
         System.out.println("Added Prof");
+        professor.setProfessorId(Database.userId+1);
+        course.setProf(professor);
+        professor.setCourseMap(course.getId(), course.getName());
+        Database.profMap.put(Database.userId++, professor);
+
         return true;
     }
 
     public boolean removeProf(int course, int professor){
         System.out.println("Removed Prof");
+        Database.profMap.remove(professor);
         return true;
     }
 
     public boolean approveStudentReg(int student, int course){
         System.out.println("Approve Student Registration");
+        Database.courseMap.get(course).addStudent(Database.studentMap.get(student));
         return true;
     }
 
@@ -29,24 +39,29 @@ public class AdminBusiness{
         return report;
     }
 
-    public void setcourseMap(HashMap<Integer,Courses> courseMap) {
-        this.courseMap = courseMap;
-    }
-
     public void addCourse(Courses temp) {
-        courseMap.put(temp.getId(),temp);
+        Database.courseMap.put(temp.getId(),temp);
     }
 
     public Courses getCourse(int courseId){
-        return courseMap.get(courseId);
+        return Database.courseMap.get(courseId);
     }
 
     public void removeCourse(Courses temp){
-        courseMap.remove(temp.getId());
+        Database.courseMap.remove(temp.getId());
     }
 
     public boolean sendPaymentNotice(int student){
         System.out.println("Payment Notice");
+        com.flipkart.bean.Student s = Database.studentMap.get(student);
+        List<Courses> courses = s.getRegisteredCourses();
+        for(Courses course:courses){
+            if(course.getStudents().size() > 10){
+                System.out.println("Course "+course.getName()+" is full");
+                return false;
+            }
+        }
+        System.out.println("Payment Approved");
         return true;
     }
 }

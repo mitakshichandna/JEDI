@@ -57,6 +57,10 @@ public class Courses {
         this.students = students;
     }
 
+    public void addStudent(Student student){
+        this.students.add(student);
+    }
+
     public void setProf(Professor p){
         prof = p;
     }

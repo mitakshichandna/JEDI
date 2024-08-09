@@ -34,8 +34,8 @@ public class Professor {
         this.department = department;
     }
 
-    public void setCourseMap(Map<Integer,String> courseMap) {
-        this.courseMap = courseMap;
+    public void setCourseMap(int courseId, String courseName) {
+        this.courseMap.put(courseId, courseName);
     }
 
     public Map<Integer,String> getCourseMap() {return courseMap;}
