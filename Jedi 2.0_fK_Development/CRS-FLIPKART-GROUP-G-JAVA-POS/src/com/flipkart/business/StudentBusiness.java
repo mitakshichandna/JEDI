@@ -1,5 +1,6 @@
 package com.flipkart.business;
 
+import com.flipkart.bean.Student;
 import com.flipkart.utils.Courses;
 
 import java.util.ArrayList;
@@ -11,17 +12,18 @@ public class StudentBusiness {
     }
     private static List<Courses> coursesList = new ArrayList<Courses>();
     public static boolean registerCourse(){
-        Courses c1=new Courses();
-        c1.setStudents();
+        List<Student> students = new ArrayList<>();
+        students.add(new Student(1,"dummy1","depart1"));
+        Courses c1=new Courses("CODE", true,123,students);;
         c1.setName("Course 1");
         System.out.println(" registered in "+c1.getName());
         return true;
     }
     public static boolean addCourse(){
-        Courses c1=new Courses();
+        List<Student> students = new ArrayList<>();
+        students.add(new Student(1,"dummy1","depart1"));
+        Courses c1=new Courses("CODE", true,123,students);;
         c1.setName("Course 1");
-        c1.setProf("Prof 1");
-        c1.setStudents();
         c1.setFees(100);
         c1.setID(1);
         c1.setCanEnroll(true);
@@ -30,7 +32,9 @@ public class StudentBusiness {
         return true;
     }
     public static boolean dropCourse(){
-        Courses c1=new Courses();
+        List<Student> students = new ArrayList<>();
+        students.add(new Student(1,"dummy1","depart1"));
+        Courses c1=new Courses("CODE", true,123,students);;
         coursesList.remove(0);
         System.out.println("dropped course so now size of courseList is "+coursesList.size());
         return true;

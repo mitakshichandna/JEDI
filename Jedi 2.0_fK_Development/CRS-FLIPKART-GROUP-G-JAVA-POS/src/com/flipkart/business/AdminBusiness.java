@@ -17,7 +17,7 @@ public class AdminBusiness{
         Courses course = Database.courseMap.get(courseId);
         professor.setProfessorId(Database.userId+1);
         course.setProf(professor);
-        professor.setCourseMap(course.getId(), course.getName());
+        //professor.setCourseMap(course.getId(), course.getName());
         Database.profMap.put(Database.userId++, professor);
 
         return true;
