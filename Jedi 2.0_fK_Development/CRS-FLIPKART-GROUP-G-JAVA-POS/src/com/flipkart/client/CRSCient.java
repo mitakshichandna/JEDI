@@ -2,13 +2,16 @@ package com.flipkart.client;
 
 import com.flipkart.bean.Grade;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 import com.flipkart.business.AdminBusiness;
 import com.flipkart.business.ProfessorBusiness;
 import com.flipkart.business.StudentBusiness;
-import com.flipkart.bean.Student;
+import com.flipkart.dao.Database;
 import com.flipkart.utils.Courses;
 
 import java.util.*;
+
+import javax.xml.crypto.Data;
 
 public class CRSCient {
     public static void main(String[] args) {
@@ -51,6 +54,8 @@ public class CRSCient {
     private static void loginMenu(Scanner scanner) {
         scanner.nextLine();
         System.out.println();
+        System.out.print("\033[H\033[2J");  
+        System.out.flush(); 
         System.out.println("Login Menu");
         System.out.println();
         System.out.print("Enter the UserName: ");
@@ -91,6 +96,7 @@ public class CRSCient {
         int courseId;
 
         while(!exit){
+            System.out.print("\033[H\033[2J"); 
             System.out.flush();
             System.out.println("Choose function");
             System.out.println("1.Approve Student Registration");
@@ -99,7 +105,10 @@ public class CRSCient {
             System.out.println("4.Add Prof");
             System.out.println("5.Remove Prof");
             System.out.println("6.Send Payment Notification");
-            System.out.println("7.Exit");
+            System.out.println("7.Show Prof List");
+            System.out.println("8.Show Student List");
+            System.out.println("9.Show Course List");
+            System.out.println("10.Exit");
 
             choice = sc.nextInt();
 
@@ -141,6 +150,12 @@ public class CRSCient {
                     admin.sendPaymentNotice(studentId);
                 break;
                 case 7:
+                break;
+                case 8:
+                break;
+                case 9:
+                break;
+                case 10:
                     exit = true;
                 break;
                 default:
@@ -153,9 +168,9 @@ public class CRSCient {
     }
 
     private static void studentMenu(Scanner scanner) {
-        List<Student> students = new ArrayList<>();
+        List<Student> students = new ArrayList<Student>();
         students.add(new Student(1,"dummy1","depart1"));
-        Courses courses = new Courses("CODE", true,123,students);
+        Courses courses = new Courses(Database.courseId++, "CODE", true,students);
                         System.out.println("Student Menu");
                 System.out.println();
                 System.out.println("choose:");
@@ -192,17 +207,12 @@ public class CRSCient {
         professor.setDepartment("Science");
         professor.setProfessorId(101);
 
-        List<Student> students = new ArrayList<>();
+        List<Student> students = new ArrayList<Student>();
         students.add(new Student(1,"Aman","depart1"));
         students.add(new Student(2,"Akhil","depart2"));
 
-        List<Courses> courses = new ArrayList<>();
-        courses.add(new Courses("Science",true,2500,students));
-        courses.add(new Courses("Maths",true,2500,students));
-        courses.add(new Courses("Hindi",true,2500,students));
-        courses.add(new Courses("English",true,2500,students));
-        courses.add(new Courses("Social Studies",true,2500,students));
-
+        List<Courses> courses = new ArrayList<Courses>();
+        courses.add(new Courses(Database.courseId++,"SB101",true,students));
 
         int choice;
         String courseName;
@@ -261,8 +271,18 @@ public class CRSCient {
                 case 5:
                     System.out.println("Enter course name");
                     courseName = scanner.nextLine();
-                    courseMap.add(courseName);
-                    professor.setCourseMap(courseMap);
+                    int id = -1;
+                    for(Courses c:Database.courseMap.values()){
+                        if(courseName.equals(c.getName())){
+                            id = c.getId();
+                            break;
+                        }
+                    }
+                    if(id != -1){
+                        professor.addCourseMap(id);
+                    }else{
+                        System.out.println("Course does not exist");
+                    } 
                     break;
                 case 6:
                     System.out.println("Exiting...");

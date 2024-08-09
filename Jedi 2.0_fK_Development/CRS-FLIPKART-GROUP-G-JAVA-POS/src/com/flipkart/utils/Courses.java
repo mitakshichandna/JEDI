@@ -2,7 +2,6 @@ package com.flipkart.utils;
 
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.business.StudentBusiness;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +14,25 @@ public class Courses {
     private Professor prof;
     private int id;
 
+    public Courses(int id, String name, boolean enroll, List<Student> students) {
+        this.id = id;
+        canEnroll = enroll;
+        this.name = name;
+        this.students = students;
+    }
+
+    public Courses(String name){
+        this.name = name;
+    }
+
+    public Courses(){}
+
     public int getId(){
         return id;
     }
 
     public void setID(int num){
         id = num;
-    }
-
-    public Courses(String code, boolean b, int i, List<Student> students) {
-        this.name = code;
-        this.canEnroll = b;
-        this.fees = i;
-        this.students = students;
     }
 
     public String getName() {

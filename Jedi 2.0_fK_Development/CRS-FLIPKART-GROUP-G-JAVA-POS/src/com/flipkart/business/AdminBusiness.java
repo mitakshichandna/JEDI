@@ -3,8 +3,6 @@ package com.flipkart.business;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.xml.crypto.Data;
-
 import com.flipkart.bean.Professor;
 import com.flipkart.dao.Database;
 import com.flipkart.utils.Courses;
