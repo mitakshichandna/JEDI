@@ -10,6 +10,12 @@ public class Student {
     private String department;
    private List<Courses> registeredCourses;
 
+    public Student(int studentId, String name, String department) {
+        this.studentId = studentId;
+        this.name = name;
+        this.department = department;
+    }
+
     public String getName() {
         return name;
     }

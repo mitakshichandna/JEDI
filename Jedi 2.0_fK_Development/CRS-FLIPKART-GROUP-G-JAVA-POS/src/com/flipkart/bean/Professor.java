@@ -1,12 +1,13 @@
 package com.flipkart.bean;
 
+import java.util.List;
 import java.util.Map;
 
 public class Professor {
     private int professorId;
     private String name;
     private String department;
-    private Map<Integer,String> courseMap;
+    private List<String> courseMap;
 
     public Professor(){};
 
@@ -34,9 +35,9 @@ public class Professor {
         this.department = department;
     }
 
-    public void setCourseMap(int courseId, String courseName) {
-        this.courseMap.put(courseId, courseName);
+    public void setCourseMap(List<String> courseMap) {
+        this.courseMap = courseMap;
     }
 
-    public Map<Integer,String> getCourseMap() {return courseMap;}
+    public List<String> getCourseMap() {return courseMap;}
 }

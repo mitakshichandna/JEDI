@@ -5,6 +5,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.business.AdminBusiness;
 import com.flipkart.business.ProfessorBusiness;
 import com.flipkart.business.StudentBusiness;
+import com.flipkart.bean.Student;
 import com.flipkart.utils.Courses;
 
 import java.util.*;
@@ -152,8 +153,8 @@ public class CRSCient {
     }
 
     private static void studentMenu(Scanner scanner) {
-        List<StudentBusiness> students = new ArrayList<StudentBusiness>();
-        students.add(new StudentBusiness(1,"dummy1","depart1"));
+        List<Student> students = new ArrayList<>();
+        students.add(new Student(1,"dummy1","depart1"));
         Courses courses = new Courses("CODE", true,123,students);
                         System.out.println("Student Menu");
                 System.out.println();
@@ -191,18 +192,28 @@ public class CRSCient {
         professor.setDepartment("Science");
         professor.setProfessorId(101);
 
-        List<StudentBusiness> students = new ArrayList<StudentBusiness>();
-        students.add(new StudentBusiness(1,"Aman","depart1"));
-        students.add(new StudentBusiness(2,"Akhil","depart2"));
+        List<Student> students = new ArrayList<>();
+        students.add(new Student(1,"Aman","depart1"));
+        students.add(new Student(2,"Akhil","depart2"));
 
-        List<Courses> courses = new ArrayList<Courses>();
-        courses.add(new Courses("SB101",true,2500,students));
+        List<Courses> courses = new ArrayList<>();
+        courses.add(new Courses("Science",true,2500,students));
+        courses.add(new Courses("Maths",true,2500,students));
+        courses.add(new Courses("Hindi",true,2500,students));
+        courses.add(new Courses("English",true,2500,students));
+        courses.add(new Courses("Social Studies",true,2500,students));
+
 
         int choice;
-        int courseId;
+        String courseName;
         int profId;
         int studentId;
         boolean exit = false;
+        List<String> courseMap = new ArrayList<>();
+
+        System.out.print("Enter ProfId: ");
+        profId = scanner.nextInt();
+        professor.setProfessorId(profId);
 
         ProfessorBusiness professorBusiness = new ProfessorBusiness();
 
@@ -229,30 +240,27 @@ public class CRSCient {
                 case 2:
                     System.out.println("Calculating Grade: ");
                     System.out.println("Enter student Id");
-                    System.out.println("Enter course Id");
+                    System.out.println("Enter course Name");
                     studentId = scanner.nextInt();
-                    courseId = scanner.nextInt();
+                    courseName = scanner.nextLine();
                     Grade grade = new Grade();
                     grade.setGrade("A");
                     ProfessorBusiness.viewGrades(grade);
                     break;
                 case 3:
                     System.out.println("Removing Course...");
-                    System.out.println("Enter course Id");
-                    courseId = scanner.nextInt();
-                    ProfessorBusiness.removeCourse(courseId,courses);
+                    System.out.println("Enter course name");
+                    courseName = scanner.nextLine();
+                    ProfessorBusiness.removeCourse(courseName,professor);
                     break;
                 case 4:
                     System.out.println("Courses under Professor: ");
-                    System.out.println("Enter course Id");
-                    profId = scanner.nextInt();
                     professorBusiness.viewCoursesUnderProfessor(professor);
                     break;
                 case 5:
                     System.out.println("Enter course name");
-                    String courseName = scanner.nextLine();
-                    Map<Integer,String> courseMap = new HashMap<Integer,String>();
-                    courseMap.put(professor.getProfessorId(),courseName);
+                    courseName = scanner.nextLine();
+                    courseMap.add(courseName);
                     professor.setCourseMap(courseMap);
                     break;
                 case 6:

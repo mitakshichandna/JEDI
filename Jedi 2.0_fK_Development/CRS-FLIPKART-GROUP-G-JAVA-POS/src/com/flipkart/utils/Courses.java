@@ -4,6 +4,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.business.StudentBusiness;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Courses {
@@ -22,7 +23,11 @@ public class Courses {
         id = num;
     }
 
-    public Courses(String code, boolean b, int i, List<StudentBusiness> students) {
+    public Courses(String code, boolean b, int i, List<Student> students) {
+        this.name = code;
+        this.canEnroll = b;
+        this.fees = i;
+        this.students = students;
     }
 
     public String getName() {

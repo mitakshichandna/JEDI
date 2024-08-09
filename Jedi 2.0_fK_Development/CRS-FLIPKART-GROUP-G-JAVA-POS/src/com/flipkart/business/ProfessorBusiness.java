@@ -7,12 +7,13 @@ import com.flipkart.utils.Courses;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class ProfessorBusiness {
 
     public void accessAvailableCourses(List<Courses> courses) {
         for (Courses course : courses) {
-            System.out.println(course.getName()+"hello");
+            System.out.println(course.getName());
         }
     }
 
@@ -35,18 +36,30 @@ public class ProfessorBusiness {
         System.out.println(temp.getGrade());
     }
 
-    public static void removeCourse(int courseId, List<Courses> courses) {
-        for (Courses course : courses) {
-            if(course.getId() == courseId) {
-                courses.remove(courseId);
+    public static void removeCourse(String courseName, Professor professor) {
+        boolean check = false;
+        List<String> courses = professor.getCourseMap();
+        for (int i=0;i<courses.size();i++) {
+            if(Objects.equals(courses.get(i), courseName)) {
+                courses.remove(i);
+                check = true;
+                break;
             }
+        }
+        if(!check) {
+            System.out.println("No such course");
         }
     }
 
     public void viewCoursesUnderProfessor(Professor professor) {
-        Map<Integer, String> courseMap = professor.getCourseMap();
-        for(int i = 0; i< courseMap.size();i++){
-            System.out.println(courseMap.get(professor.getProfessorId()));
+        List<String> courseMap = professor.getCourseMap();
+        if(courseMap == null){
+            System.out.println("No courses under professor");
+        }
+        else {
+            for (int i = 0; i < courseMap.size(); i++) {
+                System.out.println(courseMap.get(i));
+            }
         }
     }
 }
