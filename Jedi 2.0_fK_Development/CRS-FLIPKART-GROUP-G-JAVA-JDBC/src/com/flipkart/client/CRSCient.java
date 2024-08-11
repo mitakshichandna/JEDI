@@ -7,13 +7,15 @@ import com.flipkart.business.AdminBusiness;
 import com.flipkart.business.ProfessorBusiness;
 import com.flipkart.business.StudentBusiness;
 import com.flipkart.dao.Database;
+import com.flipkart.dao.StudentDAOInterface;
 import com.flipkart.dao.UserDAOInterface;
 import com.flipkart.utils.Courses;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class CRSCient {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -62,7 +64,7 @@ public static void RegisterMenu(Scanner scanner) {
     }
     catch(Exception e){}
 }
-    private static void loginMenu(Scanner scanner) {
+    private static void loginMenu(Scanner scanner) throws SQLException, ClassNotFoundException {
         scanner.nextLine();
         System.out.println();
         System.out.print("\033[H\033[2J");  
@@ -185,7 +187,7 @@ public static void RegisterMenu(Scanner scanner) {
         }
     }
 
-    private static void studentMenu(Scanner scanner) {
+    private static void studentMenu(Scanner scanner) throws SQLException, ClassNotFoundException {
         List<Student> students = new ArrayList<Student>();
         students.add(new Student(1,"dummy1","depart1"));
         Courses courses = new Courses(Database.getCourseId(), "CODE", true,students);
@@ -201,13 +203,32 @@ public static void RegisterMenu(Scanner scanner) {
                 scanner.nextLine();
                 switch (studentChoice) {
                     case 1:
-                        StudentBusiness.registerCourse();
+//                        StudentBusiness.registerCourse();
+                        System.out.println("Enter Course Name");
+                        String courseName = scanner.nextLine();
+                        System.out.println("Enter Course Id");
+                        Integer courseId=scanner.nextInt();
+                        StudentDAOInterface s=new StudentDAOInterface();
+                        s.registerCourse(courseId,courseName);
+                        System.out.println("Register Course Successfully");
                         break;
                     case 2:
-                        StudentBusiness.addCourse();
+//                        StudentBusiness.addCourse();
+                        StudentDAOInterface s1=new StudentDAOInterface();
+                        System.out.println("Please add your id");
+                        Integer studentId=scanner.nextInt();
+                        System.out.println("Please add course id");
+                        Integer courseId1=scanner.nextInt();
+                        s1.addCourse(studentId,courseId1);
                         break;
                     case 3:
-                        StudentBusiness.dropCourse();
+//                        StudentBusiness.dropCourse();
+                        StudentDAOInterface s2=new StudentDAOInterface();
+                        System.out.println("Please add your id");
+                        Integer studentId1=scanner.nextInt();
+                        System.out.println("Please add course id");
+                        Integer courseId2=scanner.nextInt();
+                        s2.removeCourse(studentId1,courseId2);
                         break;
                     case 4:
                         StudentBusiness.payFee();
