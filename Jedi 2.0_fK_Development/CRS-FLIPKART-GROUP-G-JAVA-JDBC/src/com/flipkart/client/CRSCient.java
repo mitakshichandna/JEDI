@@ -7,6 +7,7 @@ import com.flipkart.business.AdminBusiness;
 import com.flipkart.business.ProfessorBusiness;
 import com.flipkart.business.StudentBusiness;
 import com.flipkart.dao.Database;
+import com.flipkart.dao.UserDAOInterface;
 import com.flipkart.utils.Courses;
 
 import java.util.*;
@@ -33,8 +34,7 @@ public class CRSCient {
                     loginMenu(scanner);
                     break;
                 case 2:
-                    System.out.println("Registration of the Student");
-                    break;
+                    RegisterMenu(scanner);
                 case 3:
                     System.out.println("Update password");
                     break;
@@ -48,7 +48,20 @@ public class CRSCient {
             }
         }
     }
-
+public static void RegisterMenu(Scanner scanner) {
+    System.out.println("Enter id:");
+    Integer id = scanner.nextInt();
+        System.out.print("Enter your name: ");
+        String name = scanner.next();
+        System.out.print("Enter your password: ");
+        String password = scanner.next();
+    UserDAOInterface user=new UserDAOInterface();
+    try{
+        user.registerStudent(id, name, password);
+        System.out.println("Student registered successfully.");
+    }
+    catch(Exception e){}
+}
     private static void loginMenu(Scanner scanner) {
         scanner.nextLine();
         System.out.println();
@@ -60,25 +73,32 @@ public class CRSCient {
         String username = scanner.nextLine();
         System.out.print("Enter the Password: ");
         String password = scanner.nextLine();
-        System.out.print("Role (Student/Professor/Admin): ");
-        String role = scanner.nextLine();
-        System.out.println();
-        int studentChoice;
-        switch (role.toLowerCase()) {
-            case "student":
-                studentMenu(scanner);
-                break;
-            case "professor":
-                System.out.println("Professor Menu");
-                professorMenu(username,scanner);
-                break;
-            case "admin":
-                adminMenu(scanner);
-                break;
-            default:
-                System.out.println("Invalid role. Please choose either Student, Professor, or Admin.");
+        UserDAOInterface user=new UserDAOInterface();
+        if(user.validateLogin(username, password)){
+            System.out.print("Role (Student/Professor/Admin): ");
+            String role = scanner.nextLine();
+            System.out.println();
+            int studentChoice;
+            switch (role.toLowerCase()) {
+                case "student":
+                    studentMenu(scanner);
+                    break;
+                case "professor":
+                    System.out.println("Professor Menu");
+                    professorMenu(username,scanner);
+                    break;
+                case "admin":
+                    adminMenu(scanner);
+                    break;
+                default:
+                    System.out.println("Invalid role. Please choose either Student, Professor, or Admin.");
+            }
+            System.out.println();
         }
-        System.out.println();
+        else{
+            System.out.println("Invalid username or password. Please try again.");
+        }
+
     }
 
     private static void adminMenu(Scanner sc){
