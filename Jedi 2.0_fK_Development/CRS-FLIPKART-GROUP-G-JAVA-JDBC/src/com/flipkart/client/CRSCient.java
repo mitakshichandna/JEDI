@@ -307,6 +307,13 @@ public static void RegisterMenu(Scanner scanner) {
                     ProfessorBusiness.removeCourse(courseName,professor);
                     break;
                 case 4:
+                    ProfessorDAOInterface s=new ProfessorDAOInterface();
+                    Set<_Course> courses = s.viewCoursesUnderProf(professor);
+                    HashSet<String> CourseSet =  new HashSet<>(courses.size());
+                    for(_Course c : courses){
+                        CourseSet.add(c.name);
+                    }
+                    professor.courseSet = CourseSet;
                     System.out.println("Courses under Professor: ");
                     professorBusiness.viewCoursesUnderProfessor(professor);
                     break;

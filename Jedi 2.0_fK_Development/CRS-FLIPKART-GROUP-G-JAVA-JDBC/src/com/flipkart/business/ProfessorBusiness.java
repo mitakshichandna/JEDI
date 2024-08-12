@@ -45,14 +45,14 @@ public class ProfessorBusiness {
     }
 
     public void viewCoursesUnderProfessor(Professor professor) {
-        ArrayList<Integer> courses = (ArrayList<Integer>)professor.getCourseMap().stream()
-                  .collect(Collectors.toList());
-        if(courses == null){
+       HashSet<String> courses = professor.getCoursesOffered;
+
+        if(courses.size() == 0){
             System.out.println("No courses under professor");
         }
         else {
-            for (int id:courses) {
-                System.out.println(Database.courseMap.get(id).getName());
+            for (String course :courses) {
+                System.out.println(course);
             }
         }
     }
