@@ -6,7 +6,7 @@ public class Professor {
     private int professorId;
     private String name;
     private String department;
-    private HashSet<Integer> courseSet;
+    private HashSet<String> courseSet;
     public Professor(){};
 
     public int getId() {
@@ -41,5 +41,5 @@ public class Professor {
         this.courseSet.remove(courseId);
     }
 
-    public HashSet<Integer> getCourseMap() {return courseSet;}
+    public HashSet<String> getCoursesOffered() {return courseSet;}
 }
