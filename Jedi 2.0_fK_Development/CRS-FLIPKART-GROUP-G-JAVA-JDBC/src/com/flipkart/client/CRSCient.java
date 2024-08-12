@@ -1,5 +1,6 @@
 package com.flipkart.client;
 
+import com.flipkart.bean._Course;
 import com.flipkart.bean.Grade;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
@@ -283,6 +284,8 @@ public static void RegisterMenu(Scanner scanner) {
 
             switch (choice) {
                 case 1:
+                    ProfessorDAOInterface s=new ProfessorDAOInterface();
+                    Set<_Course> courses = s.viewAvailableCourses();
                     System.out.println("Available courses: ");
                     professorBusiness.accessAvailableCourses(courses);
                     break;
