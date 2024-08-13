@@ -1,15 +1,15 @@
 package com.flipkart.business;
 
+import com.flipkart.bean.Courses;
 import com.flipkart.bean.Grade;
 import com.flipkart.bean.Professor;
 import com.flipkart.dao.Database;
-import com.flipkart.utils.Courses;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProfessorBusiness {
+public class ProfessorBusiness implements ProfessorInterface {
 
     public void accessAvailableCourses(List<Courses> courses) {
         for (Courses course : courses) {

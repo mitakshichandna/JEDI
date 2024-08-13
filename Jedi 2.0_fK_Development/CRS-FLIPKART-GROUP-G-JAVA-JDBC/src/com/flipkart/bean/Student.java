@@ -1,54 +1,80 @@
 package com.flipkart.bean;
 
-import com.flipkart.utils.Courses;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.HashSet;
+/**
+ * 
+ * @author JEDI-03
+ * Class to store Student information, inheriting from User
+ * 
+ */
+public class Student extends User{
 
-public class Student {
-    private int studentId;
-    private String name;
-    private String department;
-    private HashSet<Integer> registeredCourses;
-
-    public Student(int studentId, String name, String department) {
-        this.studentId = studentId;
-        this.name = name;
-        this.department = department;
+    private String branch;
+    private int rollNum;
+    private List<String> registeredCourses; // List of courses registered by the student
+/*    private Billing billing; // Aggregated Billing object
+    private ReportCard report;*/
+    private boolean approved;
+    /**
+     * Parameterized constructor
+     * @param ID: the student ID
+     * @param name: the student's name
+     * @param contact: the student's contact information
+     * @param email: the student's email
+     * @param branch: the branch of the student
+     * @param rollNum: the roll number of the student
+     * @param billing: the billing information of the student
+     */
+    public Student(String ID, String name, String contact, String email, String branch, int rollNum, boolean approved, String password) {
+        super(ID, name, "Student", contact, email, password);
+        this.branch = branch; 
+        this.rollNum = rollNum;
+        this.registeredCourses = new ArrayList<>();
+        this.approved=approved;
     }
 
-    public String getName() {
-        return name;
+    // Getters and Setters for branch, rollNum, and billing
+    public String getBranch() {
+        return branch;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 
-    public String getDepartment() {
-        return department;
+    public int getRollNum() {
+        return rollNum;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setRollNum(int rollNum) {
+        this.rollNum = rollNum;
+    }
+    //@Override
+    public void update() {
+        // Code to update student information
     }
 
-   public HashSet<Integer> getRegisteredCourses() {
-       return registeredCourses;
-   }
-
-   public void setRegisteredCourses(HashSet<Integer> registeredCourses) {
-       this.registeredCourses = registeredCourses;
-   }
-
-   public void addCourse(int courseId){
-    registeredCourses.add(courseId);
-   }
-
-    public int getId() {
-        return studentId;
+    //@Override
+    public void changePassword(String password) {
+        // Code to change student password
+    	super.setPassword(password);
+    }
+    
+    public List<String> courseList(){
+    	return registeredCourses; 
     }
 
-    public void setId(int studentId) {
-        this.studentId = studentId;
-    }
+	public void addCourse(String courseID) {
+		registeredCourses.add(courseID);
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean status) {
+		this.approved = status;
+	}
 }

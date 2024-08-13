@@ -1,59 +1,109 @@
 package com.flipkart.business;
 
-import com.flipkart.bean.Grade;
-import com.flipkart.bean.Professor;
-import com.flipkart.dao.Database;
-import com.flipkart.utils.Courses;
+import com.flipkart.bean.*;
+import com.flipkart.dao.ProfDaoInterface;
+import com.flipkart.dao.ProfDao;
+import com.flipkart.exceptions.CourseNotAvailableException;
+import com.flipkart.exceptions.CourseNotOfferedException;
+import com.flipkart.exceptions.CourseNotOptedException;
+import com.flipkart.exceptions.GradeAlreadyAddedException;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
-public class ProfessorBusiness {
 
-    public void accessAvailableCourses(List<Courses> courses) {
-        for (Courses course : courses) {
-            System.out.println(course.getName());
-        }
+public class ProfessorBusiness implements ProfessorInterface{
+	ProfDaoInterface pdi = new ProfDao();
+    /**
+     * Method to offer a course
+     * @param course: the course to be offered
+     */
+    public String offerCourse(String courseID, Professor prof) {
+        try {
+			if(pdi.offerCourse(courseID, prof))return "Course enrolled successfully";
+		} catch (CourseNotAvailableException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
+        return "Enrollment failed...";
+        //
     }
 
-    public static boolean selectCourses(Courses temp) {
-        System.out.println("Selected course: " + temp.getName());
-        return true;
+    /**
+     * Method to get the registered students for a given course
+     * @param course: the course for which to get the registered students
+     * @return set of registered students
+     */
+    public String getStudents(String courseID, Professor prof) {
+    	//return prof.getRegisteredStudents(courseID);
+    	Set<Student> studentList = pdi.getStudents(courseID, prof);
+        StringBuilder students = new StringBuilder();
+        studentList.forEach(student -> 
+            students.append(student.getID()).append("\t")
+                    .append(student.getName()).append("\t\t")
+                    .append(student.getRollNum()).append("\n")
+        );
+        return students.toString().trim(); 
     }
 
-    public static boolean accessCourseStudentInfo(Courses temp) {
-        System.out.println("Selected student info: " + temp.getStudents());
-        return true;
+    /**
+     * Method to give a grade to a student in a course
+     * @param course: the course in which the grade is to be given
+     * @param student: the student to whom the grade is to be given
+     * @param grade: the grade to be given
+     * @return true if grade was successfully assigned, false otherwise
+     */
+    public String giveGrade(String courseID, String studentID, String grade, Professor prof) {
+         // Student is not registered for the course
+    	//Set<Student> studentList=prof.getRegisteredStudents(courseID);
+    	
+    	/*for(Student stu:studentList) {
+    		if(stu.getID().equals(studentID)) {
+    			stu.updateGrade(courseID, grade);
+    			return true;
+    		}
+    	}*/
+    	try {
+			if(pdi.giveGrade(courseID, studentID, grade, prof))return "Grade submitted successfully";
+		} catch (CourseNotOptedException | GradeAlreadyAddedException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (CourseNotOfferedException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
+    	return "Grade submission failed...";
     }
+    
+    @Override
+	public String viewCourses() {
+		// TODO Auto-generated method stub
+    	Set<Course> courses = pdi.viewCourses();
+        StringBuilder catalog = new StringBuilder();
+        courses.forEach(course -> {
+            String prof = course.getCourseProf();
+            if (prof == null) prof = "Prof Awaited";
+            catalog.append(course.getCourseID()).append("\t")
+                   .append(course.getCourseName()).append("\t\t")
+                   .append(prof).append("\t\t")
+                   .append(course.getSeats()).append("\n");
+        });
+        return catalog.toString().trim();
+	}
 
-    public static void accessCourseInfo(Courses temp) {
-        System.out.println("Info of course: " + temp.getName());
-    }
-
-    public static void viewGrades(Grade temp) {
-        System.out.println("Viewing grades");
-        System.out.println(temp.getGrade());
-    }
-
-    public static void removeCourse(String courseName, Professor professor) {
-        int courseId = Database.getCourseId(courseName);
-        boolean status = professor.getCourseMap().remove(courseId);
-        if(!status){
-            System.out.println("Course not assigned to prof");
-        }
-    }
-
-    public void viewCoursesUnderProfessor(Professor professor) {
-        ArrayList<Integer> courses = (ArrayList<Integer>)professor.getCourseMap().stream()
-                  .collect(Collectors.toList());
-        if(courses == null){
-            System.out.println("No courses under professor");
-        }
-        else {
-            for (int id:courses) {
-                System.out.println(Database.courseMap.get(id).getName());
-            }
-        }
-    }
+	@Override
+	public String viewCourseOffering(Professor prof) {
+		// TODO Auto-generated method stub
+		Set<Course> courses = pdi.viewCourseOffering(prof);
+        StringBuilder catalog = new StringBuilder();
+        courses.forEach(course -> 
+            catalog.append(course.getCourseID()).append("\t")
+                   .append(course.getCourseName()).append("\n")
+        );
+        return catalog.toString().trim();
+	}
 }

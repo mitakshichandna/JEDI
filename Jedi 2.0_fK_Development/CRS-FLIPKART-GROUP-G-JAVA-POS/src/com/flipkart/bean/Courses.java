@@ -1,7 +1,4 @@
-package com.flipkart.utils;
-
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
+package com.flipkart.bean;
 
 import java.util.List;
 
@@ -10,7 +7,7 @@ public class Courses {
     private boolean canEnroll;
     private int fees;
     private List<Student> students;
-    private Professor prof;
+    private int profId;
     private int id;
 
     public Courses(int id, String name, boolean enroll, List<Student> students) {
@@ -70,15 +67,20 @@ public class Courses {
         this.students.add(student);
     }
 
-    public void setProf(Professor p){
-        prof = p;
+    public void setProf(int pId){
+        profId = pId;
     }
 
-    public void removeProf(Professor p){
-        prof = null;
+    public void removeProf(int pId){
+        profId = -1;
     }
     
-    public Professor getProf(){
-        return prof;
+    public int getProf(){
+        return profId;
+    }
+
+    public void setId(int int1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setId'");
     }
 }

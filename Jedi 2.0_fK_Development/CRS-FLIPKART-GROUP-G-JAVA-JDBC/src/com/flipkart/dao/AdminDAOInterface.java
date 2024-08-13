@@ -1,103 +1,90 @@
 package com.flipkart.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
-import com.flipkart.constants.Queries;
-import com.flipkart.utils.DButils;
-import com.flipkart.utils.Pair;
 
-/*
- * Admins listed under table Admin(adminId(int, suto inc, unique, non null, prime), name(VARCHAR(45)))
- * Professors     
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
+import com.flipkart.exceptions.UserNotFoundException;
+import com.flipkart.exceptions.CourseAlreadyExistsException;
+import com.flipkart.exceptions.CourseNotFoundException;
+import com.flipkart.exceptions.UserAlreadyExistsException;
+
+import java.util.Set;
+
+/**
+ * Interface for admin data access object (DAO) operations.
+ * Provides methods for managing professors, courses, and student registrations.
  */
-public class AdminDAOInterface {
+public interface AdminDaoInterface {
 
-    Connection connection = DButils.getConnection();
-    private PreparedStatement statement;
+    /**
+     * Adds a new professor to the system.
+     * @param Professor The `Prof` object representing the new professor.
+     * @param username The username of the admin adding the professor.
+     * @return A `String` message indicating the result of the addition operation (e.g., success or failure).
+     * @throws UserAlreadyExistsException If a professor with the same ID or username already exists.
+     */
+    public String addProf(Professor prof, String username) throws UserAlreadyExistsException;
 
-    public void deleteCourse(int courseId){
-        try{
-            statement = connection.prepareStatement(Queries.DELETE_COURSE);
-            statement.setInt(1, courseId);
-            statement.executeUpdate();
+    /**
+     * Removes a professor from the system.
+     * @param profID The ID of the professor to be removed.
+     * @return `true` if the professor was successfully removed; `false` otherwise.
+     * @throws UserNotFoundException If no professor with the given ID is found.
+     */
+    public boolean removeProf(String profID) throws UserNotFoundException;
 
-        } catch (SQLException e) {
-            // TODO: handle exception
-        }
-    }
-    public void addCourse(int courseId, String courseName){
-        try{
-            statement = connection.prepareStatement(Queries.ADD_COURSE);
-            statement.setInt(1, courseId);
-            statement.setString(2, courseName);
-            statement.executeUpdate();
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
-    public List<Integer> getStudentCourses(int studentId){
-        ArrayList<Integer> courses = new ArrayList<Integer>(10);
-        try{
-            statement = connection.prepareStatement(Queries.STUDENT_COURSES);
-            statement.setInt(1, studentId);
-            ResultSet set = statement.executeQuery();
-            while(set.next()){
-                courses.add(set.getInt("course"));
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-        return courses;
-    }
-    public void approveStudent(int studentId){
-        try{
-            statement = connection.prepareStatement(Queries.REGISTER_STUDENT);
-            statement.setInt(1, studentId);
-            statement.executeUpdate();
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
-    public List<Pair<Integer, String>> registeredStudents(int studentId){
-        ArrayList<Pair<Integer, String>> courses = new ArrayList<Pair<Integer, String>>(10);
-        try{
-            statement = connection.prepareStatement(Queries.LIST_REGISTERED_STUDENTS);
-            ResultSet set = statement.executeQuery();
-            while(set.next()){
-                courses.add(new Pair<Integer, String>(set.getInt("studentId"), set.getString("name")));
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-        return courses;
-    }
-    public List<Pair<Integer, String>> unregisteredStudents(){
-        ArrayList<Pair<Integer, String>> courses = new ArrayList<Pair<Integer, String>>(10);
-        try{
-            statement = connection.prepareStatement(Queries.LIST_UNREGISTERED_STUDENTS);
-            ResultSet set = statement.executeQuery();
-            while(set.next()){
-                courses.add(new Pair<Integer, String>(set.getInt("studentId"), set.getString("name")));
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-        return courses;
-    }
-    public void assignProfToCourse(int professorId, int courseId){
-        try{
-            statement = connection.prepareStatement(Queries.ASSIGN_COURSE);
-            statement.setInt(1, professorId);
-            statement.setInt(2, courseId);
-            statement.executeUpdate();
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
+    /**
+     * Updates an existing course with new details.
+     * @param courseCode The code of the course to be updated.
+     * @param updatedCourse The `Course` object containing the updated course details.
+     * @return `true` if the course was successfully updated; `false` otherwise.
+     * @throws CourseAlreadyExistsException If a course with the new details already exists.
+     * @throws CourseNotFoundException If no course with the given code is found.
+     */
+    public boolean updateCourse(String courseCode, Course updatedCourse) throws CourseAlreadyExistsException, CourseNotFoundException;
 
+    /**
+     * Adds a new course to the catalog.
+     * @param course The `Course` object representing the new course.
+     * @return `true` if the course was successfully added; `false` otherwise.
+     * @throws CourseAlreadyExistsException If a course with the same ID already exists.
+     */
+    public boolean addCourse(Course course) throws CourseAlreadyExistsException;
+
+    /**
+     * Removes a course from the catalog.
+     * @param courseID The ID of the course to be removed.
+     * @return `true` if the course was successfully removed; `false` otherwise.
+     * @throws CourseNotFoundException If no course with the given ID is found.
+     */
+    public boolean removeCourse(String courseID) throws CourseNotFoundException;
+
+    /**
+     * Registers a student based on their ID.
+     * @param studentID The ID of the student to be registered.
+     * @return `true` if the student was successfully registered; `false` otherwise.
+     * @throws UserNotFoundException If no student with the given ID is found.
+     */
+    public boolean registerStudent(String studentID) throws UserNotFoundException;
+
+    /**
+     * Retrieves the list of all available courses.
+     * @return A `Set<Course>` containing all the courses in the catalog.
+     */
+    public Set<Course> viewCourses();
+
+    /**
+     * Retrieves the list of all professors.
+     * @return A `Set<Prof>` containing all the professors.
+     */
+    public Set<Professor> viewProfessors();
+
+    /**
+     * Retrieves the list of students whose registrations are not yet approved.
+     * @return A `Set<Student>` containing all the unapproved students.
+     */
+    public Set<Student> viewUnapprovedStudents();
 }

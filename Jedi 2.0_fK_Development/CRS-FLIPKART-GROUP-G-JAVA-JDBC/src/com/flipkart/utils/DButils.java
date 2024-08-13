@@ -3,6 +3,7 @@ package com.flipkart.utils;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import com.flipkart.utils.DButils;
@@ -15,7 +16,7 @@ public class DButils {
         }else{
             try{
                 Properties prop = new Properties();
-                InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("../../../../config.properties");
+                InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("./config.properties");
                 prop.load(inputStream);
                 String driver = prop.getProperty("driver");
                 String url = prop.getProperty("url");
@@ -29,4 +30,14 @@ public class DButils {
             return connection;
         }
     }
+    public static boolean closeConnection() {
+        try {
+            if (connection != null)
+                connection.close();
+        } 
+        catch (SQLException se) {
+        	return false;
+        }
+        return true;
+	}
 }

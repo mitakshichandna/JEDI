@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
+import com.flipkart.bean.Courses;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.Database;
-import com.flipkart.utils.Courses;
 
-public class AdminBusiness{
+public class AdminBusiness implements AdminInterface{
 
     public boolean addProf(String courseName, String professorName){
         System.out.println("Added Prof");

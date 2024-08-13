@@ -2,9 +2,9 @@ package com.flipkart.dao;
 
 import java.util.HashMap;
 
+import com.flipkart.bean.Courses;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.utils.Courses;
 
 public class Database {
     public static HashMap<Integer, Courses> courseMap;

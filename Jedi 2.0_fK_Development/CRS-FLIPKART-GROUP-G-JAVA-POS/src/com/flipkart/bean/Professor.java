@@ -7,7 +7,7 @@ public class Professor {
     private String name;
     private String department;
     private HashSet<Integer> courseSet;
-    public Professor(){};
+    public Professor(String userID, String name2, String contact, String email, String department2, String qualification, String password){};
 
     public int getId() {
         return professorId;
@@ -42,4 +42,24 @@ public class Professor {
     }
 
     public HashSet<Integer> getCourseMap() {return courseSet;}
+
+    public String getContact() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getContact'");
+    }
+
+    public String getEmail() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEmail'");
+    }
+
+    public String getPassword() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+    }
+
+    public String getQualification() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getQualification'");
+    }
 }

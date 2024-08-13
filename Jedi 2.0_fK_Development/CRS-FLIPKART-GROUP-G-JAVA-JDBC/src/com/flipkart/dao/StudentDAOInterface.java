@@ -1,42 +1,63 @@
 package com.flipkart.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.List;
+import java.util.Set;
 
-public class StudentDAOInterface {
-    public void registerCourse(Integer id,String name) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con= DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/CRS","root","12345");
-        PreparedStatement pst=con.prepareStatement("insert into RegisteredCourses values(?,?)");
-        pst.setInt(1,id);
-        pst.setString(2,name);
-        pst.executeUpdate();
-        con.close();
-    }
-    public void addCourse(Integer sid, Integer cid) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/CRS","root","12345");
-        PreparedStatement pst=con.prepareStatement("insert into student_courses values(?,?)");
-        pst.setInt(1,sid);
-        pst.setInt(2,cid);
-        pst.executeUpdate();
-        con.close();
-    }
-    public void removeCourse(Integer sid, Integer cid) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/CRS","root","12345");
-        PreparedStatement pst=con.prepareStatement("delete from student_courses where student_id=? and course_id=?");
-        pst.setInt(1,sid);
-        pst.setInt(2,cid);
-        int rows=pst.executeUpdate();
-        if(rows>0){
-            System.out.println("course removed successfully");
-        }
-        else{
-            System.out.println("course not found");
-        }
-    }
+import com.flipkart.bean.Billing;
+import com.flipkart.bean.Course;
+import com.flipkart.bean.ReportCard;
+import com.flipkart.bean.Student;
+import com.flipkart.exceptions.BillingNotFoundException;
+import com.flipkart.exceptions.CourseAlreadyOptedException;
+import com.flipkart.exceptions.CourseNotAvailableException;
+import com.flipkart.exceptions.CourseNotFoundException;
+
+public interface StudentDaoInterface {
+
+    /**
+     * Registers a student for a course.
+     * @param student The `Student` object representing the student registering for the course.
+     * @param coursesID The ID of the course to be registered for.
+     * @return The total cost for the registered course.
+     * @throws CourseAlreadyOptedException If the student has already opted for the course.
+     * @throws CourseNotAvailableException If the course is not available.
+     * @throws CourseNotFoundException If the course with the specified ID is not found.
+     */
+    public float register(Student student, String coursesID) 
+        throws CourseAlreadyOptedException, CourseNotAvailableException, CourseNotFoundException;
+
+    /**
+     * Retrieves the list of courses a student is currently enrolled in.
+     * @param student The `Student` object representing the student whose courses are to be retrieved.
+     * @return A `List<Course>` containing the courses the student is currently enrolled in.
+     */
+    public List<Course> viewCoursesEnrolled(Student student);
+
+    /**
+     * Retrieves the list of all available courses.
+     * @return A `Set<Course>` containing all the available courses.
+     */
+    public Set<Course> viewCourses();
+
+    /**
+     * Retrieves the report card for a specific student.
+     * @param student The `Student` object representing the student whose report card is to be retrieved.
+     * @return A `ReportCard` object containing the student's academic report.
+     */
+    public ReportCard getReport(Student student);
+
+    /**
+     * Retrieves billing information for a specific student.
+     * @param student The `Student` object representing the student whose billing information is to be retrieved.
+     * @return A `Billing` object containing the billing information.
+     * @throws BillingNotFoundException If the billing information for the student is not found.
+     */
+    public Billing getBillingInfo(Student student) throws BillingNotFoundException;
+
+    /**
+     * Updates the billing information for a specific student.
+     * @param billing The `Billing` object containing the updated billing information.
+     * @return `true` if the billing information was successfully updated; `false` otherwise.
+     */
+    public boolean updateBillingInfo(Billing billing);
 }
