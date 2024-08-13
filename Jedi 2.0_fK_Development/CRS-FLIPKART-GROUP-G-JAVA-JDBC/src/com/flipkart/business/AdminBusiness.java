@@ -2,7 +2,6 @@ package com.flipkart.business;
 
 import java.util.Set;
 
-import com.flipkart.bean.*;
 import com.flipkart.dao.AdminDao;
 import com.flipkart.exceptions.CourseAlreadyExistsException;
 import com.flipkart.exceptions.CourseNotFoundException;

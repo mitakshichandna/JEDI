@@ -1,5 +1,6 @@
 package com.flipkart.business;
 
+import com.flipkart.bean.*;
 import com.flipkart.dao.ProfDaoInterface;
 import com.flipkart.dao.ProfDao;
 import com.flipkart.exceptions.CourseNotAvailableException;
@@ -7,11 +8,6 @@ import com.flipkart.exceptions.CourseNotOfferedException;
 import com.flipkart.exceptions.CourseNotOptedException;
 import com.flipkart.exceptions.GradeAlreadyAddedException;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Set;
 
 

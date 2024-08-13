@@ -1,8 +1,8 @@
 package com.flipkart.business;
 
-import java.util.HashMap;
 import java.util.Map;
 
+import com.flipkart.bean.*;
 import com.flipkart.dao.UserDao;
 import com.flipkart.exceptions.UserNotFoundException;
 import com.flipkart.exceptions.UsernameAlreadyInUseException;

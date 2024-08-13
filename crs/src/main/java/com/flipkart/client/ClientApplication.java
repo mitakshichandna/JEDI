@@ -5,7 +5,7 @@ import com.flipkart.bean.Catalog;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
-
+import com.flipkart.business.*;
 import java.util.Scanner;
 
 public class ClientApplication {
@@ -101,9 +101,9 @@ public class ClientApplication {
 	
 	/**
 	 * Handles password update for a user.
-	 * @param username The username of the user whose password needs to be updated.
-	 * @param password The old password of the user.
-	 * @param newPassword The new password to be set.
+	 * username The username of the user whose password needs to be updated.
+	 * password The old password of the user.
+	 * newPassword The new password to be set.
 	 */
 	public static void updatePassword() {
 		Scanner s = new Scanner(System.in);
