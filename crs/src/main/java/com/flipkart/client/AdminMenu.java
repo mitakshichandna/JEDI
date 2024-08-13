@@ -8,6 +8,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.business.AdminBusiness;
 import com.flipkart.business.AdminInterface;
+import com.flipkart.exceptions.UserAlreadyExistsException;
 
 public class AdminMenu {
 	AdminInterface adminService = new AdminBusiness();
@@ -146,7 +147,7 @@ public class AdminMenu {
 	 * Adds a new professor to the system.
 	 * @param admin The admin user performing the operation.
 	 */
-	private void addProf(Admin admin) {
+	private void addProf(Admin admin){
 		System.out.println("Enter Prof details in the following format:\nusername \tName \tcontact \temail \tdept \tqualification \tpassword");
 		Scanner s = new Scanner(System.in);
 		String username = s.next();

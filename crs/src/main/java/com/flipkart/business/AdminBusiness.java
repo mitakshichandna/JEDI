@@ -23,8 +23,7 @@ public class AdminBusiness implements AdminInterface{
 			userID = adi.addProf(prof, username);
 			if(!userID.isEmpty())return "Professor Added with id: "+userID;
 		} catch (UserAlreadyExistsException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
     		return "Operation Failed...";
     		//userInstance.makeNew(username,(User)prof);
@@ -40,7 +39,6 @@ public class AdminBusiness implements AdminInterface{
     	try {
 			if(adi.removeProf(profID))return "Professor removed successfully";
 		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
     	return "Operation Failed..."; // Professor ID not found
@@ -71,7 +69,6 @@ public class AdminBusiness implements AdminInterface{
     	try {
 			if(adi.addCourse(course))return "Course added Successfully";
 		} catch (CourseAlreadyExistsException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
     	return "Operation Failed...";
@@ -87,7 +84,6 @@ public class AdminBusiness implements AdminInterface{
     	try {
 			if(adi.removeCourse(courseID))return "Course removed Successfully";
 		} catch (CourseNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
     	return "Operation Failed...";
@@ -101,7 +97,6 @@ public class AdminBusiness implements AdminInterface{
     	try {
 			if(adi.registerStudent(studentID))return "Student approved";
 		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
     	return "Operation Failed...";

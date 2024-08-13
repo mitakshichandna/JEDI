@@ -145,7 +145,6 @@ public class StudentBusiness implements StudentInterface {
 
 	@Override
 	public float getCoursePricing(Student student) {
-		// TODO Auto-generated method stub
 		float price=0;
     	List<Course> courseList=sdi.viewCoursesEnrolled(student);
     	for(Course course:courseList) {
