@@ -24,10 +24,8 @@ public class DButils {
                 String user = prop.getProperty("user");
                 String password = prop.getProperty("password");
                 connection = DriverManager.getConnection(url, user, password);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (SQLException | IOException e) {
+                System.out.println(e.getMessage());
             }
             return connection;
         }

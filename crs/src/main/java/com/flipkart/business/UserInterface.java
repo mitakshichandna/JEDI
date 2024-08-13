@@ -22,7 +22,7 @@ public interface UserInterface {
      * @param username The username of the new user.
      * @param user The `User` object representing the new user.
      */
-    public void makeNew(String username, User user);
+    public void createNewUser(String username, User user);
     
     /**
      * Changes the password for a specified user.

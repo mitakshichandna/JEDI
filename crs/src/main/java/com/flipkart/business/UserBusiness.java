@@ -1,7 +1,5 @@
 package com.flipkart.business;
 
-import java.util.Map;
-
 import com.flipkart.bean.*;
 import com.flipkart.dao.UserDao;
 import com.flipkart.exceptions.UserNotFoundException;
@@ -19,12 +17,11 @@ public class UserBusiness implements UserInterface{
 			if(password.equals(user.getPassword())) 
 				return user;
 		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}return null;
 	}
 	
-	public void makeNew(String username, User user){
+	public void createNewUser(String username, User user){
 		users.put(username, user);
 	}
 	
@@ -32,8 +29,7 @@ public class UserBusiness implements UserInterface{
 		try {
 			return udi.updatePassword(username, password, newPassword);
 		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		return false;
 	}
@@ -43,8 +39,7 @@ public class UserBusiness implements UserInterface{
 		try {
 			return udi.registerStudent(username, name, contact, email, password, branch);
 		} catch (UsernameAlreadyInUseException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -57,8 +52,7 @@ public class UserBusiness implements UserInterface{
 	}
 	
 	public void printUsers() {
-		users.entrySet().stream()
-        .map(Map.Entry::getValue)
+		users.values().stream()
         .filter(user -> "Student".equals(user.getRole()))
         .map(user -> (Student) user)
         .forEach(stu -> System.out.println(stu.getID() + "-" + stu.getName()));

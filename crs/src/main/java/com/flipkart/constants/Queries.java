@@ -40,7 +40,7 @@ public class Queries{
 	
 	public static final String VIEW_STUDENT_LIST = "SELECT * FROM student JOIN registeredCourse ON student.userID = registeredCourse.studentID JOIN user ON student.userID = user.userID WHERE registeredCourse.courseID = ?"; 
 	public static final String SET_GRADE = "INSERT INTO reportCard(studentID, courseID, grade) values(?, ?, ?)";
-	public static final String VIEW_COURSE_CATALOG = "SELECT * FROM crsapp.catalog";
+	public static final String VIEW_COURSE_CATALOG = "SELECT * FROM catalog";
 	public static final String VIEW_COURSE_ENROLLED="SELECT * FROM catalog WHERE courseProf = ?";
 
 	public static final String UPDATE_BILLING_INFO = "UPDATE billing SET billamt = ?, status = ?, transactionID = ? WHERE billingID = ?";

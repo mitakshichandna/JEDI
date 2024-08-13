@@ -21,8 +21,7 @@ public class ProfessorBusiness implements ProfessorInterface{
         try {
 			if(pdi.offerCourse(courseID, prof))return "Course enrolled successfully";
 		} catch (CourseNotAvailableException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
+            System.out.println(e.getMessage());
 		}
         return "Enrollment failed...";
         //
@@ -37,8 +36,9 @@ public class ProfessorBusiness implements ProfessorInterface{
     	//return prof.getRegisteredStudents(courseID);
     	Set<Student> studentList = pdi.getStudents(courseID, prof);
         StringBuilder students = new StringBuilder();
+        students.append("ID  \t").append("Name\t").append("Roll number");
         studentList.forEach(student -> 
-            students.append(student.getID()).append("\t")
+            students.append(student.getID()).append("\t\t")
                     .append(student.getName()).append("\t\t")
                     .append(student.getRollNum()).append("\n")
         );
@@ -64,25 +64,21 @@ public class ProfessorBusiness implements ProfessorInterface{
     	}*/
     	try {
 			if(pdi.giveGrade(courseID, studentID, grade, prof))return "Grade submitted successfully";
-		} catch (CourseNotOptedException | GradeAlreadyAddedException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		} catch (CourseNotOfferedException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
+		} catch (CourseNotOptedException | GradeAlreadyAddedException | CourseNotOfferedException e) {
+            System.out.println(e.getMessage());
 		}
-    	return "Grade submission failed...";
+        return "Grade submission failed...";
     }
     
     @Override
 	public String viewCourses() {
-		// TODO Auto-generated method stub
     	Set<Course> courses = pdi.viewCourses();
         StringBuilder catalog = new StringBuilder();
+        catalog.append("ID \t").append("Name\t").append("Professor").append("Seats Left");
         courses.forEach(course -> {
             String prof = course.getCourseProf();
             if (prof == null) prof = "Prof Awaited";
-            catalog.append(course.getCourseID()).append("\t")
+            catalog.append(course.getCourseID()).append("\t\t")
                    .append(course.getCourseName()).append("\t\t")
                    .append(prof).append("\t\t")
                    .append(course.getSeats()).append("\n");
@@ -92,7 +88,6 @@ public class ProfessorBusiness implements ProfessorInterface{
 
 	@Override
 	public String viewCourseOffering(Professor prof) {
-		// TODO Auto-generated method stub
 		Set<Course> courses = pdi.viewCourseOffering(prof);
         StringBuilder catalog = new StringBuilder();
         courses.forEach(course -> 

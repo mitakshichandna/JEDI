@@ -18,7 +18,11 @@ public class AdminMenu {
 	 * @param username The username of the admin.
 	 */
 	public void adminMenu(Admin admin, String username) {
-		System.out.println("Welcome to CRS Application " + username);
+//		System.out.print("\\u033[H\\033[2J");
+		System.out.println("*****************************************************");
+		System.out.println("*****************************************************");
+		System.out.flush();
+		System.out.println("Welcome to CRS " + "\033[3m"+admin.getName()+" ("+username+")"+"\033[0m");
 		LocalDateTime localDateTime = LocalDateTime.now();
 		System.out.println("LOGIN TIME: " + localDateTime);
 		
@@ -26,7 +30,15 @@ public class AdminMenu {
 		int in = 0;
 		
 		while (in != 7) {
-			System.out.println("1. Add Professor\n2. Remove Professor\n3. Modify Course\n4. Add Course\n5. Remove Course\n6. Approve Student Registration\n7. Exit");
+			System.out.println("*****************************************************");
+			System.out.flush();
+			System.out.println("1. Add Professor\n" +
+					"2. Remove Professor\n" +
+					"3. Modify Course\n" +
+					"4. Add Course\n" +
+					"5. Remove Course\n" +
+					"6. Approve Student Registration\n" +
+					"7. Exit");
 			in = s.nextInt();
 			
 			switch (in) {
@@ -73,7 +85,7 @@ public class AdminMenu {
 	 * @param admin The admin user performing the operation.
 	 */
 	private void removeCourse(Admin admin) {
-		System.out.println("Existing Courses:");
+		System.out.println("Current Courses:\n***********************************");
 		System.out.println(adminService.viewCourses());
 		System.out.println("Course Code to be removed:");
 		Scanner s = new Scanner(System.in);
@@ -86,9 +98,9 @@ public class AdminMenu {
 	 * @param admin The admin user performing the operation.
 	 */
 	private void addCourse(Admin admin) {
-		System.out.println("Existing Courses:");
+		System.out.println("Current Courses:\n***********************************");
 		System.out.println(adminService.viewCourses());
-		System.out.println("Enter Course details in the following format:\n<courseID> <courseName> <seats> <price>");
+		System.out.println("Enter Course details in the following format:\ncourseID \tcourseName \tseats \tprice");
 		Scanner s = new Scanner(System.in);
 		String courseID = s.next();
 		String courseName = s.next();
@@ -103,12 +115,12 @@ public class AdminMenu {
 	 * @param admin The admin user performing the operation.
 	 */
 	private void updateCourse(Admin admin) {
-		System.out.println("Existing Courses:");
+		System.out.println("Current Courses:\n***********************************");
 		System.out.println(adminService.viewCourses());
 		Scanner s = new Scanner(System.in);
-		System.out.println("Enter old courseID");
+		System.out.println("\nEnter old courseID");
 		String oldCourseID = s.next();
-		System.out.println("Enter Course details in the following format:\n<courseID> <courseName> <seats> <profID> <price>");
+		System.out.println("Enter Course details in the following format:\ncourseID \tcourseName \tseats \tprofID \tprice");
 		String courseID = s.next();
 		String courseName = s.next();
 		int seats = s.nextInt();
@@ -135,7 +147,7 @@ public class AdminMenu {
 	 * @param admin The admin user performing the operation.
 	 */
 	private void addProf(Admin admin) {
-		System.out.println("Enter Prof details in the following format:\n<username> <profName> <contact> <email> <dept> <qualification> <password>");
+		System.out.println("Enter Prof details in the following format:\nusername \tName \tcontact \temail \tdept \tqualification \tpassword");
 		Scanner s = new Scanner(System.in);
 		String username = s.next();
 		String profName = s.next();

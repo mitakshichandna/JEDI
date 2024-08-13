@@ -11,11 +11,11 @@ import com.flipkart.exceptions.CourseNotFoundException;
 import java.util.List;
 import java.util.Set;
 
-public class StudentOperations implements StudentInterface {
+public class StudentBusiness implements StudentInterface {
 	StudentDaoInterface sdi=new StudentDao();
     /**
      * Method to register the student in a course
-     * @param course: the course to register
+     * @param courses: the course to register
      * @return true if registration was successful, false otherwise
      */
 	public String register(Student student, List<String> courses) {
@@ -27,17 +27,10 @@ public class StudentOperations implements StudentInterface {
 			float temp=0;
 			try {
 				temp = sdi.register(student, courseID);
-			} catch (CourseAlreadyOptedException e) {
-				// TODO Auto-generated catch block
-				e.getMessage();
-			} catch (CourseNotAvailableException e) {
-				// TODO Auto-generated catch block
-				e.getMessage();
-			} catch (CourseNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.getMessage();
+			} catch (CourseAlreadyOptedException | CourseNotFoundException | CourseNotAvailableException e) {
+				System.out.println(e.getMessage());
 			}
-			count++;
+            count++;
 			confirmedRegistration=confirmedRegistration.concat(courseID+"\n");
 			price+=temp;
 			
@@ -93,21 +86,18 @@ public class StudentOperations implements StudentInterface {
 	    	if(billing.isStatus())status="Completed";
 	    	return billing.getBillingID()+"\t"+billing.getBillamt()+"\t"+status;
 		} catch (BillingNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		return null;
     }
 
 	@Override
 	public int getValidCount(List<String> courses) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public String viewCourses() {
-		// TODO Auto-generated method stub
 		StringBuilder catalog = new StringBuilder();
 	    Set<Course> courses = sdi.viewCourses();
 	    
@@ -146,8 +136,7 @@ public class StudentOperations implements StudentInterface {
 		        return "Payment failed. Please try again.";
 		    }
 		} catch (BillingNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		return null;
 

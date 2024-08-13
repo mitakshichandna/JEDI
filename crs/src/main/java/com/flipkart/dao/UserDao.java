@@ -36,21 +36,22 @@ public class UserDao implements UserDaoInterface{
 						contact=rs.getString("contact"), email=rs.getString("email"), 
 						name=rs.getString("name"),password=rs.getString("password");
 				//user=new User(userID,name,role,contact,email,password);
-				
-				if(role.equals("Student")) {
-					try {
-						user=getStudent(userID,name,role,contact,email,password);
-					} catch (StudentNotApprovedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				else if(role.equals("Professor")) {
-					user=getProfessor(userID,name,role,contact,email,password);
-				}
-				else if(role.equals("Admin")) {
-					user=getAdmin(userID,name,role,contact,email,password);
-				}
+
+                switch (role) {
+                    case "Student":
+                        try {
+                            user = getStudent(userID, name, role, contact, email, password);
+                        } catch (StudentNotApprovedException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    case "Professor":
+                        user = getProfessor(userID, name, role, contact, email, password);
+                        break;
+                    case "Admin":
+                        user = getAdmin(userID, name, role, contact, email, password);
+                        break;
+                }
 				return user;
 			}
 			else {
@@ -69,7 +70,7 @@ public class UserDao implements UserDaoInterface{
 			ps.setString(1, userID);
 			ResultSet rs = ps.executeQuery();
 	
-			User user = null;
+			User user;
 			if (rs.next()) {
 				String branch=rs.getString("branch");
 				int rollNum=rs.getInt("rollNum");

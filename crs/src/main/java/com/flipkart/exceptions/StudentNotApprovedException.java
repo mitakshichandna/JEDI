@@ -9,7 +9,7 @@ private String studentId;
 	
 	/**
 	 * Getter function for studentId
-	 * @return
+	 * @return studentId as String
 	 */
 	public String getStudentId() {
 		return studentId;

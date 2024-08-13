@@ -11,12 +11,12 @@ import com.flipkart.exceptions.UserNotFoundException;
 import com.flipkart.dao.AdminDaoInterface;
 
 public class AdminBusiness implements AdminInterface{
-    /**
-     * Method to add a professor
-     * @param professor: the professor to add
-     */
 	AdminDaoInterface adi=new AdminDao();
-	
+
+	/**
+	 * Method to add a professor
+	 * @param prof: the professor to add
+	 */
     public String addProf(Professor prof, String username) {
 		String userID;
 		try {
@@ -32,7 +32,7 @@ public class AdminBusiness implements AdminInterface{
 
     /**
      * Method to remove a professor
-     * @param professorID: the ID of the professor to remove
+     * @param profID: the ID of the professor to remove
      * @return true if professor was removed successfully, false otherwise
      */
     public String removeProf(String profID) {
@@ -41,25 +41,23 @@ public class AdminBusiness implements AdminInterface{
 			if(adi.removeProf(profID))return "Professor removed successfully";
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
     	return "Operation Failed..."; // Professor ID not found
     }
 
     /**
      * Method to update a course
-     * @param courseCode: the code of the course to update
+     * @param courseID: the code of the course to update
      * @param updatedCourse: the updated course details
      * @return true if course was updated successfully, false otherwise
      */
     public String updateCourse(String courseID, Course updatedCourse) {
-        //catalog.removeCourse(courseCode);
-        //catalog.addCourse(updatedCourse);
     	try {
 			if(adi.updateCourse(courseID, updatedCourse))return "Course information updated successfully";
 		} catch (CourseAlreadyExistsException | CourseNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
     	return "Operation Failed...";
     }
@@ -75,14 +73,14 @@ public class AdminBusiness implements AdminInterface{
 			if(adi.addCourse(course))return "Course added Successfully";
 		} catch (CourseAlreadyExistsException e) {
 			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
     	return "Operation Failed...";
     }
 
     /**
      * Method to remove a course
-     * @param courseCode: the code of the course to remove
+     * @param courseID: the code of the course to remove
      * @return true if course was removed successfully, false otherwise
      */
     public String removeCourse(String courseID) {
@@ -91,21 +89,21 @@ public class AdminBusiness implements AdminInterface{
 			if(adi.removeCourse(courseID))return "Course removed Successfully";
 		} catch (CourseNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
     	return "Operation Failed...";
     }
 
     /**
      * Method to register a student
-     * @param student: the student to register
+     * @param studentID: the student to register
      */
     public String registerStudent(String studentID) {
     	try {
 			if(adi.registerStudent(studentID))return "Student approved";
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
     	return "Operation Failed...";
     	//student.setApproved(true);
@@ -113,31 +111,31 @@ public class AdminBusiness implements AdminInterface{
 
 	@Override
 	public String viewCourses() {
-		// TODO Auto-generated method stub
 		Set<Course> courses = adi.viewCourses();
         StringBuilder catalog = new StringBuilder();
+		catalog.append("ID  \t\t").append("Name\t\t").append("Prof Assigned\t").append("Seats Left");
         courses.forEach(course -> {
             String prof = course.getCourseProf();
             if (prof == null) prof = "Prof Awaited";
-            catalog.append(course.getCourseID()).append("\t")
+            catalog.append(course.getCourseID()).append("\t\t")
                    .append(course.getCourseName()).append("\t\t")
                    .append(prof).append("\t\t")
                    .append(course.getSeats()).append("\n");
         });
-        return catalog.toString().trim(); 
+        return catalog.toString().trim();
 	}
-	
+
 	@Override
 	public String viewProfessors() {
 		// TODO Auto-generated method stub
-        Set<Professor> profs = adi.viewProfessors();
-        StringBuilder catalog = new StringBuilder();
-        profs.forEach(prof -> 
-            catalog.append(prof.getName()).append("\t\t")
-                   .append(prof.getID()).append("\t\t")
-                   .append(prof.getDept()).append("\n")
-        );
-        return catalog.toString().trim(); 
+		Set<Professor> profs = adi.viewProfessors();
+		StringBuilder catalog = new StringBuilder();
+		profs.forEach(prof ->
+				catalog.append(prof.getName()).append("\t\t")
+						.append(prof.getID()).append("\t\t")
+						.append(prof.getDept()).append("\n")
+		);
+		return catalog.toString().trim();
 	}
 
 	@Override

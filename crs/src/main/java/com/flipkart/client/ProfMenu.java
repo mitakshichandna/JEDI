@@ -16,7 +16,11 @@ public class ProfMenu {
 	 * @param username The username of the professor.
 	 */
 	public void professorMenu(Professor prof, String username) {
-		System.out.println("Welcome to CRS Application " + username);
+//		System.out.print("\033[H\033[2J");
+		System.out.println("*****************************************************");
+		System.out.println("*****************************************************");
+		System.out.flush();
+		System.out.println("Welcome to CRS " + "\033[3m"+prof.getName()+" ("+username+")"+"\033[0m");
 		LocalDateTime localDateTime = LocalDateTime.now();
 		System.out.println("LOGIN TIME: " + localDateTime);
 		
@@ -24,6 +28,8 @@ public class ProfMenu {
 		int in = 0;
 		
 		while (in != 4) {
+			System.out.println("*****************************************************");
+			System.out.flush();
 			System.out.println("Professor Menu:");
 			System.out.println("1. Offer Course\n2. View Registered Students\n3. Submit Grades\n4. Exit");
 		

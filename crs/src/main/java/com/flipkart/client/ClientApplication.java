@@ -21,11 +21,16 @@ public class ClientApplication {
 		
 		// Main menu loop
 		while (input != 4) {
+//			System.out.println("\u001B[34m"+"TEST"+"\u001B[0m");
+//			System.out.print("\\u033[H\\033[2J");
+			System.out.println("*****************************************************");
+			System.out.println("*****************************************************");
+			System.out.flush();
 			System.out.println("Welcome to the CRS Application :-->");
-			System.out.println("Press 1:--> Login");
-			System.out.println("Press 2:--> Registration");
-			System.out.println("Press 3:--> Update Password");
-			System.out.println("Press 4:--> Exit");
+			System.out.println("1: Login");
+			System.out.println("2: Registration");
+			System.out.println("3: Update Password");
+			System.out.println("4: Exit");
 			input = s.nextInt();
 			
 			switch (input) {
@@ -59,7 +64,7 @@ public class ClientApplication {
 		User user = userInstance.retrieve(username, password);
 		
 		if (user == null) {
-			System.out.println("Wrong username or password, exiting main menu...");
+			System.out.println("Wrong username/password. \nTRY AGAIN\n");
 			return;
 		}
 		
@@ -80,13 +85,15 @@ public class ClientApplication {
 	 * Handles student registration by taking user input and registering a new student.
 	 */
 	public static void studentRegistraion() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
 		Scanner s = new Scanner(System.in);
 		System.out.println("Enter Username :");
 		String username = s.next();
 		s.nextLine();
-		System.out.println("Enter Name :");
+		System.out.println("Enter Display Name :");
 		String name = s.nextLine();
-		System.out.println("Enter Details in the following format: \n<contact> <email> <branch> <password>");
+		System.out.println("Enter Details: \ncontact \temail \tbranch \tpassword");
 		
 		String details = s.nextLine();
         
@@ -108,11 +115,11 @@ public class ClientApplication {
 	public static void updatePassword() {
 		Scanner s = new Scanner(System.in);
 		String username, password, newPassword;
-		System.out.println("Enter the Username :--");
+		System.out.println("Enter the Username :-");
 		username = s.next();
-		System.out.println("Enter old Password :--");
+		System.out.println("Enter old Password :-");
 		password = s.next();
-		System.out.println("Enter new Password :--");
+		System.out.println("Enter new Password :-");
 		newPassword = s.next();
 		
 		if (userInstance.changePassword(username, password, newPassword)) {
