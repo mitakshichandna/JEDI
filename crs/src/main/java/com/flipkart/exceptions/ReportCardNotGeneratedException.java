@@ -1,9 +1,11 @@
 package com.flipkart.exceptions;
 
 
+import com.flipkart.constants.Colours;
+
 public class ReportCardNotGeneratedException extends Exception {
 
-    private String studentId;
+    private final String studentId;
 
     public ReportCardNotGeneratedException(String studentId) {
         this.studentId = studentId;
@@ -11,6 +13,6 @@ public class ReportCardNotGeneratedException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Report card not generated for student with ID: " + studentId;
+        return Colours.ANSI_RED+"Report card not generated for student with ID: " + studentId+ Colours.ANSI_RESET;
     }
 }

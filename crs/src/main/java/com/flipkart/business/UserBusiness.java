@@ -2,6 +2,7 @@ package com.flipkart.business;
 
 import com.flipkart.bean.*;
 import com.flipkart.dao.UserDao;
+import com.flipkart.exceptions.StudentNotApprovedException;
 import com.flipkart.exceptions.UserNotFoundException;
 import com.flipkart.exceptions.UsernameAlreadyInUseException;
 import com.flipkart.dao.UserDaoInterface;
@@ -14,11 +15,12 @@ public class UserBusiness implements UserInterface{
 		User user;
 		try {
 			user = udi.getUser(username);
-			if(password.equals(user.getPassword())) 
+			if(user!= null && password.equals(user.getPassword()))
 				return user;
 		} catch (UserNotFoundException e) {
 			System.out.println(e.getMessage());
-		}return null;
+		}
+		return null;
 	}
 	
 	public void createNewUser(String username, User user){

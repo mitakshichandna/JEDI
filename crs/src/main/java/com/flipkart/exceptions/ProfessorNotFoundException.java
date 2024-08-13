@@ -1,8 +1,10 @@
 package com.flipkart.exceptions;
 
+import com.flipkart.constants.Colours;
+
 public class ProfessorNotFoundException extends Exception {
 
-    private String professorId;
+    private final String professorId;
 
     public ProfessorNotFoundException(String professorId) {
         this.professorId = professorId;
@@ -10,6 +12,6 @@ public class ProfessorNotFoundException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Professor with ID: " + professorId + " not found.";
+        return Colours.ANSI_RED+"Professor with ID: " + professorId + " not found."+Colours.ANSI_RESET;
     }
 }

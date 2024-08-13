@@ -1,8 +1,10 @@
 package com.flipkart.exceptions;
 
+import com.flipkart.constants.Colours;
+
 public class UsernameAlreadyInUseException extends Exception {
 
-    private String username;
+    private final String username;
 
     public UsernameAlreadyInUseException(String username) {
         this.username = username;
@@ -10,6 +12,6 @@ public class UsernameAlreadyInUseException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Email: " + username + " is already in use.";
+        return Colours.ANSI_RED+"Username: " + username + " is already taken by another user"+ Colours.ANSI_RESET;
     }
 }

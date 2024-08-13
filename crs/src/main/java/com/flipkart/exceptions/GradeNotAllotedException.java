@@ -3,7 +3,7 @@ package com.flipkart.exceptions;
 
 public class GradeNotAllotedException extends Exception {
 
-    private String studentId;
+    private final String studentId;
 
     public GradeNotAllotedException(String studentId) {
         this.studentId = studentId;

@@ -1,8 +1,10 @@
 package com.flipkart.exceptions;
 
+import com.flipkart.constants.Colours;
+
 public class ProfessorAlreadyExistsException extends Exception {
 
-    private String professorId;
+    private final String professorId;
 
     public ProfessorAlreadyExistsException(String professorId) {
         this.professorId = professorId;
@@ -10,6 +12,6 @@ public class ProfessorAlreadyExistsException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Professor with ID: " + professorId + " already exists.";
+        return Colours.ANSI_RED+"Professor with ID: " + professorId + " already exists."+Colours.ANSI_RESET;
     }
 }

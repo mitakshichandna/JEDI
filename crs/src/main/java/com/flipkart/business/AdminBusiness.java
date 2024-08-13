@@ -56,7 +56,6 @@ public class AdminBusiness implements AdminInterface{
     	try {
 			if(adi.updateCourse(courseID, updatedCourse))return "Course information updated successfully";
 		} catch (CourseAlreadyExistsException | CourseNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
     	return "Operation Failed...";
@@ -113,7 +112,7 @@ public class AdminBusiness implements AdminInterface{
 	public String viewCourses() {
 		Set<Course> courses = adi.viewCourses();
         StringBuilder catalog = new StringBuilder();
-		catalog.append("ID  \t\t").append("Name\t\t").append("Prof Assigned\t").append("Seats Left");
+		catalog.append("ID  \t\t").append("Name\t\t").append("Prof Assigned\t").append("Seats Left\n");
         courses.forEach(course -> {
             String prof = course.getCourseProf();
             if (prof == null) prof = "Prof Awaited";

@@ -42,7 +42,7 @@ public class ClientApplication {
 					login(username, password);
 					break;
 				case 2:
-					studentRegistraion();
+					studentRegistration();
 					break;
 				case 3:
 					updatePassword();
@@ -67,24 +67,28 @@ public class ClientApplication {
 			System.out.println("Wrong username/password. \nTRY AGAIN\n");
 			return;
 		}
-		
-		if (user.getRole().equals("Student")) {
-			if (!((Student)user).isApproved()) return;
-			StudentMenu studentOps = new StudentMenu();
-			studentOps.studentMenu((Student)user, username);
-		} else if (user.getRole().equals("Professor")) {
-			ProfMenu profops = new ProfMenu();
-			profops.professorMenu((Professor)user, username);
-		} else if (user.getRole().equals("Admin")) {
-			AdminMenu adminops = new AdminMenu();
-			adminops.adminMenu((Admin)user, username);
-		}
+
+        switch (user.getRole()) {
+            case "Student":
+                if (!((Student) user).isApproved()) return;
+                StudentMenu studentOps = new StudentMenu();
+                studentOps.studentMenu((Student) user, username);
+                break;
+            case "Professor":
+                ProfMenu profops = new ProfMenu();
+                profops.professorMenu((Professor) user, username);
+                break;
+            case "Admin":
+                AdminMenu adminops = new AdminMenu();
+                adminops.adminMenu((Admin) user, username);
+                break;
+        }
 	}
 	
 	/**
 	 * Handles student registration by taking user input and registering a new student.
 	 */
-	public static void studentRegistraion() {
+	public static void studentRegistration() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
 		Scanner s = new Scanner(System.in);

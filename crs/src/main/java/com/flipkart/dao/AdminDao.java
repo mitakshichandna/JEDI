@@ -105,15 +105,12 @@ public class AdminDao implements AdminDaoInterface{
 
 	@Override
 	public boolean updateCourse(String courseID, Course updatedCourse) throws CourseAlreadyExistsException,CourseNotFoundException{
-		// TODO Auto-generated method stub
 		if(!this.removeCourse(courseID))return false;
-		if(!this.addCourse(updatedCourse))return false;
-		return true;
-	}
+        return this.addCourse(updatedCourse);
+    }
 
 	@Override
 	public boolean addCourse(Course course) throws CourseAlreadyExistsException{
-		// TODO Auto-generated method stub
 		try {
 			// Step 1: Check if the course already exists
 	        PreparedStatement checkCourseStmt = conn.prepareStatement(Queries.GET_COURSE);

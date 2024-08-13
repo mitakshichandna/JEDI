@@ -1,7 +1,9 @@
 package com.flipkart.exceptions;
 
+import com.flipkart.constants.Colours;
+
 public class StudentNotApprovedException extends Exception{
-private String studentId;
+private final String studentId;
 	
 	public StudentNotApprovedException(String id) {
 		studentId = id;
@@ -21,6 +23,6 @@ private String studentId;
 	 */
 	@Override
 	public String getMessage() {
-		return "StudentId: " + studentId + "has not been approved!";
+		return Colours.ANSI_RED+"StudentId: " + studentId + "has not been approved!"+Colours.ANSI_RESET;
 	}
 }
