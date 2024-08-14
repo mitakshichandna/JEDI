@@ -1,10 +1,7 @@
 package com.flipkart.business;
 
-import com.flipkart.bean.Catalog;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.User;
 
 public interface AdminInterface {
 

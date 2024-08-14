@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.flipkart.bean.Student;
-import com.flipkart.business.StudentOperations;
+import com.flipkart.business.StudentBusiness;
 import com.flipkart.business.StudentInterface;
 
 class StudentMenu {
-	StudentInterface studentService = new StudentOperations();
+	StudentInterface studentService = new StudentBusiness();
 
 	/**
 	 * Displays the student menu and processes user selections for various student operations.
@@ -20,14 +20,20 @@ class StudentMenu {
 	void studentMenu(Student student, String username) {
 		Scanner s = new Scanner(System.in);
 		int in = 0;
-		System.out.println("Welcome to CRS Application " + username);
+//		System.out.print("\033[H\033[2J");
+		System.out.println("*****************************************************");
+		System.out.println("*****************************************************");
+		System.out.flush();
+		System.out.println("Welcome to CRS " + "\033[3m"+student.getName()+" ("+username+")"+"\033[0m");
 		LocalDateTime localDateTime = LocalDateTime.now();
 		System.out.println("LOGIN TIME: " + localDateTime);
 
 		while (in != 6) {
+			System.out.println("*****************************************************");
+			System.out.flush();
 			System.out.println("Student Menu:");
 			System.out.println("1. Register Courses\n2. View Courses\n3. View Report Card\n4. Billing info\n5. Make Payment\n6. Exit");
-			
+
 			in = s.nextInt();
 			switch (in) {
 				case 1:
@@ -52,7 +58,7 @@ class StudentMenu {
 			}
 		}
 	}
-	
+
 	/**
 	 * Displays billing information for the student.
 	 * @param student The student user requesting billing info.
@@ -103,7 +109,7 @@ class StudentMenu {
 		String[] splitArray = registered.split("\n");
 		String floatval = splitArray[splitArray.length - 1].split(" ")[1];
 		float price = Float.parseFloat(floatval);
-		
+
 		System.out.println("Following courses were registered successfully:");
 		System.out.println(registered);
 	}

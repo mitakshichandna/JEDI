@@ -1,10 +1,6 @@
 package com.flipkart.business;
 
-import java.util.Set;
-
-import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
 
 public interface ProfessorInterface {
 
