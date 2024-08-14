@@ -1,13 +1,13 @@
 package com.flipkart.client;
 
+import com.flipkart.bean.Courses;
 import com.flipkart.bean.Grade;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.business.AdminBusiness;
 import com.flipkart.business.ProfessorBusiness;
-import com.flipkart.business.StudentBusiness;
+import com.flipkart.business.StudentInterface;
 import com.flipkart.dao.Database;
-import com.flipkart.utils.Courses;
 
 import java.util.*;
 
@@ -181,19 +181,19 @@ public class CRSCient {
                 scanner.nextLine();
                 switch (studentChoice) {
                     case 1:
-                        StudentBusiness.registerCourse();
+                        StudentInterface.registerCourse();
                         break;
                     case 2:
-                        StudentBusiness.addCourse();
+                        StudentInterface.addCourse();
                         break;
                     case 3:
-                        StudentBusiness.dropCourse();
+                        StudentInterface.dropCourse();
                         break;
                     case 4:
-                        StudentBusiness.payFee();
+                        StudentInterface.payFee();
                         break;
                     case 5:
-                        StudentBusiness.checkGrades();
+                        StudentInterface.checkGrades();
                         break;
                 }
 

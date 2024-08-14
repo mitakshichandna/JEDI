@@ -1,7 +1,5 @@
 package com.flipkart.bean;
 
-import com.flipkart.utils.Courses;
-
 import java.util.HashSet;
 
 public class Student {
@@ -14,6 +12,15 @@ public class Student {
         this.studentId = studentId;
         this.name = name;
         this.department = department;
+    }
+
+    public Student() {
+        //TODO Auto-generated constructor stub
+    }
+
+    public Student(String string, String string2, String string3, String string4, String string5, int int1,
+            boolean boolean1, String string6) {
+        //TODO Auto-generated constructor stub
     }
 
     public String getName() {
@@ -50,5 +57,15 @@ public class Student {
 
     public void setId(int studentId) {
         this.studentId = studentId;
+    }
+
+    public Object getRollNum() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getRollNum'");
+    }
+
+    public boolean isApproved() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isApproved'");
     }
 }

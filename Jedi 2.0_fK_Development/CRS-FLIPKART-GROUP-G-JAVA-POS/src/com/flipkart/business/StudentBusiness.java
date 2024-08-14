@@ -1,8 +1,8 @@
 package com.flipkart.business;
 
+import com.flipkart.bean.Courses;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.Database;
-import com.flipkart.utils.Courses;
 
 import java.util.ArrayList;
 import java.util.List;
